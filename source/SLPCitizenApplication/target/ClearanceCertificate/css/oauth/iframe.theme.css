@@ -1,0 +1,54 @@
+
+/* Theme1 */
+/* Default theme */
+.theme1  #es-content {background-color:#f8f8f8}
+.theme1  #es-content .es-title {background-color:#c3deef;}
+.theme1 .theme-bg-color {background-color:#f8f8f8;}
+.theme1  #es-content h2 { background-color: #c3deef;}
+
+/* Theme2 */
+
+/* home page */
+
+.theme2 .data-raw h2.legend { background-color: #007c5a; border: 1px solid #007c5a;}
+.theme2 .data-raw .legend-border { border: 1px solid #007c5a;}
+.theme2  #es-content .es-title {background: #aff5be;}
+.theme2 .theme-bg-color {background-color:#f2fff8;}
+.theme2  #es-content .content-wraper {background-color:#f2fff8;}
+.theme2  #es-content h2 { background-color: #aff5be;color: #007C5A}
+.theme2 .theme-bg-color {background-color:#eefff6 ;}
+.theme2 #es-content{background-color:#eefff6}
+
+.theme2 #es-content input[type="submit"]:hover,.theme2 #es-content input[type="button"]:hover,.theme2 #es-content button :hover {
+    background: none repeat scroll 0 0 #f2fff8;
+    border: 1px solid #50c53d;
+    color: #336699;
+}
+.theme2 #es-content input.es-submit:hover,.theme2 #es-content input.es-button:hover,.theme2 #es-content input.es-reset:hover
+{
+    background: none repeat scroll 0 0 #f2fff8;
+    border: 1px solid #50c53d;
+    color: #336699;  
+}
+
+/* Theme3 */
+
+.theme3 .data-raw h2.legend { background-color: #dc5100; border: 1px solid #dc5100;}
+.theme3 .data-raw .legend-border { border: 1px solid #dc5100;}
+.theme3  #es-content .es-title {background: #FCBB95;}
+.theme3 .theme-bg-color {background-color:#F0E8E7;}
+.theme3  #es-content .content-wraper {background-color:#F0E8E7;}
+.theme3  #es-content{background-color:#F0E8E7}
+.theme3  #es-content h2 { background-color: #fcbb95;color:#DC5100;}
+
+.theme3 #es-content input[type="submit"]:hover,.theme3 #es-content input[type="button"]:hover,.theme3 #es-content button :hover {
+    background: none repeat scroll 0 0 #fceee6;
+    border: 1px solid #FCBB95;
+    color: #336699;
+}
+.theme3 #es-content input.es-submit:hover, .theme3 #es-content input.es-button:hover,.theme3 #es-content input.es-reset:hover
+{
+    background: none repeat scroll 0 0 #fceee6;
+    border: 1px solid #FCBB95;
+    color: #336699; 
+}

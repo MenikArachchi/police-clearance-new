@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="application_status_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a97f958d-1b2b-42cc-92f9-ea535284aea7">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="144"/>
+	<parameter name="LOGO_IMAGE" class="java.lang.Object"/>
+	<parameter name="REPORT_USER" class="java.lang.String"/>
+	<parameter name="REPORT_DATE" class="java.util.Date"/>
+	<parameter name="CID_RETURN_SUB_REPORT" class="java.lang.Object"/>
+	<parameter name="TID_RETURN_SUB_REPORT" class="java.lang.Object"/>
+	<parameter name="SIS_RETURN_SUB_REPORT" class="java.lang.Object"/>
+	<parameter name="NIC_RETURN_SUB_REPORT" class="java.lang.Object"/>
+	<parameter name="IMI_RETURN_SUB_REPORT" class="java.lang.Object"/>
+	<parameter name="POL_RETURN_SUB_REPORT" class="java.lang.Object"/>
+	<field name="referenceNo" class="java.lang.String"/>
+	<field name="nic" class="java.lang.String"/>
+	<field name="newNic" class="java.lang.String"/>
+	<field name="passport" class="java.lang.String"/>
+	<field name="applicantNameAsNic" class="java.lang.String"/>
+	<field name="dateOfBirth" class="java.util.Date"/>
+	<field name="applicantStatus" class="java.lang.String"/>
+	<field name="sex" class="java.lang.String"/>
+	<field name="occupation" class="java.lang.String"/>
+	<field name="purpose" class="java.lang.String"/>
+	<field name="mobileNo" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="submittedDate" class="java.util.Date"/>
+	<field name="applicationVerifiedDate" class="java.lang.String"/>
+	<field name="certificateSerialNo" class="java.lang.String"/>
+	<field name="recommendedOfficerName" class="java.lang.String"/>
+	<field name="recommendedOfficerRank" class="java.lang.String"/>
+	<field name="recommendedDate" class="java.util.Date"/>
+	<field name="recommendedComment" class="java.lang.String"/>
+	<field name="addressStatusViewGridVOsPolice" class="java.util.List"/>
+	<field name="cidStatusViewGridVOs" class="java.util.List"/>
+	<field name="sisStatusViewGridVOs" class="java.util.List"/>
+	<field name="nicStatusViewGridVOs" class="java.util.List"/>
+	<field name="tidStatusViewGridVOs" class="java.util.List"/>
+	<field name="imiStatusViewGridVOs" class="java.util.List"/>
+	<field name="applicationReviewStatus" class="java.lang.String"/>
+	<field name="applicationClearanceStatus" class="java.lang.String"/>
+	<field name="certificateIssuedDate" class="java.util.Date"/>
+	<field name="certificatePostedDate" class="java.util.Date"/>
+	<field name="coApproved" class="java.lang.String"/>
+	<field name="oicApproved" class="java.lang.String"/>
+	<field name="aspApproved" class="java.lang.String"/>
+	<field name="dhaApproved" class="java.lang.String"/>
+	<field name="digApproved" class="java.lang.String"/>
+	<field name="postedStatus" class="java.lang.String"/>
+	<field name="addressStatusViewGridVOsPhq" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82">
+			<image scaleImage="FillFrame" isUsingCache="false">
+				<reportElement uuid="eb04510a-09a4-4c6b-9ab3-44afd9d4029b" x="10" y="10" width="58" height="65"/>
+				<imageExpression><![CDATA[$P{LOGO_IMAGE}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="b1dc0454-7c3a-41a6-a44e-71f5754ea275" x="395" y="57" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Generated Date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="4a37cc65-4d58-45e0-9b75-a37340a75ce0" x="322" y="57" width="74" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_USER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="82979bad-8a50-4d00-8ae0-1b4d56bca297" x="77" y="11" width="363" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[POLICE HEADQUARTERS, COLOMBO 1, SRI LANKA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="4a37cc65-4d58-45e0-9b75-a37340a75ce0" x="465" y="57" width="81" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b1dc0454-7c3a-41a6-a44e-71f5754ea275" x="253" y="57" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Generated User:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="112" y="31" width="252" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Application Status Report]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="fe283c98-aa55-4b6a-8289-42cb43fe4974" x="0" y="81" width="555" height="1"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="383" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="0" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Reference No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="19" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Full Name:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="66" y="0" width="168" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referenceNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="66" y="19" width="489" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicantNameAsNic}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="375" y="0" width="180" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{submittedDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="234" y="0" width="142" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Date of Appli. Handed over:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="265" y="38" width="111" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[ 	Passport No:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="66" y="38" width="200" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nic}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="375" y="38" width="180" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{passport}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="38" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[NIC Number:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="fe283c98-aa55-4b6a-8289-42cb43fe4974" x="0" y="194" width="555" height="1" forecolor="#999999"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="121" y="219" width="112" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateSerialNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="218" width="123" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Certificate Reference Number:]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="290" y="218" width="92" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateOfBirth}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="232" y="219" width="59" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="381" y="218" width="59" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Tel No:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="439" y="218" width="115" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mobileNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="237" y="239" width="59" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="125" y="241" width="112" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicantStatus}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="443" y="239" width="115" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{purpose}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="292" y="239" width="92" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="239" width="123" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Status:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="384" y="239" width="59" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Purpose:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="fe283c98-aa55-4b6a-8289-42cb43fe4974" x="0" y="239" width="555" height="1" forecolor="#999999"/>
+			</line>
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="261" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Personal Recommendation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="277" width="95" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Name of the officer:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="95" y="276" width="461" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recommendedOfficerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="134" y="310" width="37" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="49" y="310" width="86" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recommendedOfficerRank}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="303" y="310" width="252" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recommendedComment}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="168" y="310" width="85" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recommendedDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="310" width="49" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Rank:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="253" y="310" width="51" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Comment:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="330" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[CID Return]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="fe283c98-aa55-4b6a-8289-42cb43fe4974" x="0" y="296" width="555" height="1" forecolor="#999999"/>
+			</line>
+			<subreport>
+				<reportElement uuid="51833196-d5ad-4c50-967c-eea68cd6b040" x="0" y="346" width="555" height="16"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{cidStatusViewGridVOs})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{CID_RETURN_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="375" y="95" width="180" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicationClearanceStatus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="209" y="94" width="167" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[ 	Application Clearance Status:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="134" y="95" width="76" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicationReviewStatus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="96" width="134" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Application Verification Status:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="134" y="120" width="99" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateIssuedDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="119" width="134" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Certificate Issued Date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="375" y="118" width="180" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificatePostedDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="233" y="119" width="143" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[ 	Certificate Posted Date:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="fe283c98-aa55-4b6a-8289-42cb43fe4974" x="0" y="81" width="555" height="1" forecolor="#999999"/>
+			</line>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="260" y="174" width="112" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{oicApproved}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="371" y="176" width="75" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[ASP App. Status:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="74" y="172" width="112" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{coApproved}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="445" y="172" width="110" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aspApproved}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="172" width="75" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[CO App. Status:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="186" y="173" width="75" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[OIC App. Status:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="445" y="191" width="110" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{postedStatus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="371" y="195" width="75" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Posted Status:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="74" y="196" width="112" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dhaApproved}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="260" y="196" width="112" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{digApproved}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="186" y="196" width="75" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[DIG App. Status:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="196" width="75" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[DHA App. Status:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="fe283c98-aa55-4b6a-8289-42cb43fe4974" x="0" y="149" width="555" height="1" forecolor="#999999"/>
+			</line>
+			<staticText>
+				<reportElement uuid="a2933c05-f3d5-47f5-85bd-2ff3a04ca244" x="0" y="61" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[New NIC Number:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42f066f2-2e28-4aaf-8f4b-0ecf3c06be2c" x="67" y="61" width="200" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{newNic}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement uuid="51833196-d5ad-4c50-967c-eea68cd6b040" x="0" y="16" width="555" height="16"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{tidStatusViewGridVOs})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{TID_RETURN_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="0" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[TID Return]]></text>
+			</staticText>
+		</band>
+		<band height="46">
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="0" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[SIS Return]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="51833196-d5ad-4c50-967c-eea68cd6b040" x="0" y="16" width="555" height="16"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{sisStatusViewGridVOs})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SIS_RETURN_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="48">
+			<subreport>
+				<reportElement uuid="51833196-d5ad-4c50-967c-eea68cd6b040" x="0" y="16" width="555" height="16"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{nicStatusViewGridVOs})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{NIC_RETURN_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="0" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[NIC Return]]></text>
+			</staticText>
+		</band>
+		<band height="38">
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="0" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[IMI Return]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="51833196-d5ad-4c50-967c-eea68cd6b040" x="0" y="16" width="555" height="16"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{imiStatusViewGridVOs})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{IMI_RETURN_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="49">
+			<subreport>
+				<reportElement uuid="51833196-d5ad-4c50-967c-eea68cd6b040" x="0" y="16" width="555" height="16"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{addressStatusViewGridVOsPolice})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{POL_RETURN_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="0" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Return From Police Stations]]></text>
+			</staticText>
+		</band>
+		<band height="35">
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="0" width="555" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Updates By Police Headquarters]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="51833196-d5ad-4c50-967c-eea68cd6b040" x="0" y="17" width="555" height="16"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{addressStatusViewGridVOsPhq})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{POL_RETURN_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

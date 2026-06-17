@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clearence_certificate_print" pageWidth="676" pageHeight="576" columnWidth="609" leftMargin="10" rightMargin="57" topMargin="10" bottomMargin="0" uuid="6310c5a0-3f98-415a-bf1b-a3d75ddffd29">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="80"/>
+	<parameter name="REPORT_DATE" class="java.util.Date"/>
+	<parameter name="LOGO_IMAGE" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="MY_NO" class="java.lang.String"/>
+	<parameter name="YOUR_NO" class="java.lang.String"/>
+	<field name="highCommisionReferenceAddress" class="java.lang.String"/>
+	<field name="applicantNameAsNic" class="java.lang.String"/>
+	<field name="nic" class="java.lang.String"/>
+	<field name="certificatePostalAddress" class="java.lang.String"/>
+	<field name="applicationRequestedPeriod" class="java.lang.String"/>
+	<field name="certificateAuthPersonName" class="java.lang.String"/>
+	<field name="certificateSerialNo" class="java.lang.String"/>
+	<field name="letterContent" class="java.lang.String"/>
+	<field name="highCommisionner" class="java.lang.String"/>
+	<field name="deliveryType" class="java.lang.String"/>
+	<field name="passportNo" class="java.lang.String"/>
+	<field name="certificateAuthPersonDesignation" class="java.lang.String"/>
+	<field name="certificateAuthPersonAddress" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+    <field name="selectedNameOption" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="175" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="82979bad-8a50-4d00-8ae0-1b4d56bca297" x="52" y="111" width="405" height="17">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Br-Ridhma." size="13" isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[ fmd,sia uQ,ia:dkh"  fld<U 1" YS% ,xldj']]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="82979bad-8a50-4d00-8ae0-1b4d56bca297" x="2" y="133" width="565" height="19">
+					<printWhenExpression><![CDATA[true]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Police Clearance Certificate]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="233be6da-6e7a-4c1c-acfd-2f5c9dcfd378" x="405" y="112" width="166" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="82979bad-8a50-4d00-8ae0-1b4d56bca297" x="52" y="127" width="405" height="17">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Kalaham" size="14" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[nghyp]; jiyik mYtyfk;> nfhok;G 1> ,yq;if.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="82979bad-8a50-4d00-8ae0-1b4d56bca297" x="52" y="143" width="405" height="18">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[POLICE HEADQUARTERS, COLOMBO 1, SRI LANKA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="9" y="5" width="67" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Br-Ridhma." isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[;e' fm' wxlh]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a2f9d8c4-269b-4aa5-96e8-58c1285f6c43" x="9" y="108" width="607" height="1">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.75"/>
+				</graphicElement>
+			</line>
+			<image isUsingCache="false">
+				<reportElement uuid="eb04510a-09a4-4c6b-9ab3-44afd9d4029b" x="245" y="10" width="96" height="87">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{LOGO_IMAGE}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="9" y="33" width="67" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[P. O. Box No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="9" y="19" width="67" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Kalaham" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[m. ng. ,y.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="74" y="2" width="10" height="44">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="32" isBold="false"/>
+				</textElement>
+				<text><![CDATA[}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="85" y="20" width="17" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[517]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="86" y="71" width="55" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2421111]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="9" y="87" width="67" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telephone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="9" y="73" width="67" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Kalaham" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[njhdyNgrp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="9" y="59" width="67" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Br-Ridhma." isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[ÿrl:kh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="75" y="54" width="10" height="44">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="32" isBold="false"/>
+				</textElement>
+				<text><![CDATA[}]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9b1f55ce-c9be-4b4c-bb70-4a81645670ec" x="466" y="14" width="117" height="15"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Courier New" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{MY_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="380" y="14" width="55" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Kalaham" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[VdJ ,y.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="380" y="0" width="55" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Br-Ridhma." isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[uf.a wxlh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="380" y="28" width="55" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[My No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="434" y="48" width="10" height="44">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="32" isBold="false"/>
+				</textElement>
+				<text><![CDATA[}]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="380" y="82" width="55" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Your No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="380" y="54" width="55" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Br-Ridhma." isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Tfí wxlh]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d89e7cd1-454a-44bc-a2f0-eb9c60b4e95f" x="466" y="60" width="117" height="15"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Courier New" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{YOUR_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="380" y="68" width="55" height="15">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Kalaham" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[ckJ ,y.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bfddb8a1-8e8d-4dbb-8a88-aca7f82dd18c" x="434" y="-1" width="10" height="44">
+					<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="32" isBold="false"/>
+				</textElement>
+				<text><![CDATA[}]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="10" y="2" width="558" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{highCommisionner}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="43">
+			<staticText>
+				<reportElement uuid="8bfceef3-b4bb-4edb-b170-853cab12b722" x="10" y="1" width="208" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<text><![CDATA[This is to certify that:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="38" y="21" width="529" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicantNameAsNic}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="10" y="21" width="28" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="222" y="1" width="348" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{selectedNameOption}.equals("PASSPORT"))?$F{passportNo}:$F{nic}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="10" y="1" width="210" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{selectedNameOption}.equals("PASSPORT"))?"Passport number:":"National Identity card number:"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="22">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="66" y="0" width="502" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificatePostalAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8bfceef3-b4bb-4edb-b170-853cab12b722" x="10" y="0" width="56" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<text><![CDATA[Address:]]></text>
+			</staticText>
+		</band>
+		<band height="23">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="cd49c9f5-e691-42cd-a6ff-7e3a31dbd86b" stretchType="RelativeToTallestObject" x="10" y="0" width="558" height="20"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This applicant has lived in Sri Lanka from " + $F{applicationRequestedPeriod} + "."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="cd49c9f5-e691-42cd-a6ff-7e3a31dbd86b" stretchType="RelativeToTallestObject" x="10" y="0" width="558" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Courier New" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{letterContent}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="108">
+			<staticText>
+				<reportElement uuid="8bfceef3-b4bb-4edb-b170-853cab12b722" x="366" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<text><![CDATA[For:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8bfceef3-b4bb-4edb-b170-853cab12b722" x="366" y="20" width="194" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<text><![CDATA[Inspector General of Police]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="12" y="58" width="354" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateAuthPersonName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="12" y="76" width="354" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateAuthPersonDesignation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="12" y="94" width="354" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateAuthPersonAddress}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="8bfceef3-b4bb-4edb-b170-853cab12b722" x="11" y="0" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<text><![CDATA[P.H.Q]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="954348dd-10e7-43fa-84d0-86f100b99787" x="51" y="0" width="168" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateSerialNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="adabdf67-c58e-499a-a5f6-acd741c8a94d" x="515" y="0" width="54" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Courier New" size="9"/>
+					<paragraph rightIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deliveryType}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,26 @@
+<script type="text/javascript">
+
+/* Following is for handling the user logout with the OAuth provider logout. */
+var logoutPrompt = true;
+var providerLogoutUrl = '<s:property value="#session.LOGOUT_URL" />';
+providerLogoutUrl = providerLogoutUrl.replace("&amp;","&");
+
+function logoutProvider() {
+	if (logoutPrompt) {
+		if (confirm("<s:text name='oauth.provider.logout.question' /> (<s:property value='#session.OAUTH_PROVIDER' />) ?")) {
+			var newWindow = window.open(providerLogoutUrl, "LogOut Provider", "width=800, height=600");
+			if (window.focus) {
+				newWindow.focus();
+			}
+		}
+		logoutPrompt = false;	
+	}
+	
+	var logOutLink = document.getElementById("logOutLink");
+	logOutLink.href = document.getElementById("logoutUrlAnchor").href;
+	logOutLink.click();
+	
+	return true;
+}
+
+</script>

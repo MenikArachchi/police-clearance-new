@@ -1,0 +1,220 @@
+/*common*/
+label {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	vertical-align: top;
+}
+p { 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	margin-left: 10px; 
+}
+input { 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	vertical-align:middle; 
+}
+h3 { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; font-style: normal;
+	margin: 0px 0px 0px 0px;
+	background: #D7EBFF;
+	padding: 5px; 
+}
+h4 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	margin: 0px 0px 0px 0px;
+	background: #D7EBFF;
+	padding: 5px;
+}
+
+h6 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	margin: 0px 0px 0px 0px;
+	padding: 5px;
+}
+select { 
+	font-family: Verdana, Arial, Helvetica, sans-serif;		
+	font-style: normal;
+	vertical-align:middle; 
+}
+.form_item {
+	margin-top: 10px;
+
+}
+fieldset {
+	padding:0px;
+}
+.btn_style { 
+	margin-left: 88%;
+	margin-bottom: 5px;
+}
+.clear { 
+	clear:both; 
+}
+.errorMessage { 
+	color: red;
+	font-family: Verdana, Arial, Helvetica, sans-serif;		
+	font-style: normal;
+	font-weight: bold;	
+}
+.labeltd {
+	padding: 5px;
+}
+.req_field {
+    font-size: medium; 
+	color: #ff0000;
+	display: inline;
+	visibility: visible;
+}
+
+.gridTable
+{
+border:1px solid #ffffff;
+background-color:#ffffff;
+}
+
+.gridTable th
+{
+background-color: #828f95;
+padding-top: 3px;
+padding-right: 3px;
+padding-bottom: 3px;
+padding-left: 5px;	
+text-align:center;
+color:#555555;
+valign:top;
+}
+
+.gridTable td
+{
+padding-top: 3px;
+padding-right: 2px;
+padding-bottom: 3px;
+padding-left: 5px;
+}
+
+#gridTable2
+{
+border:1px solid #ffffff;
+}
+
+#gridTable2 td
+{
+padding-top: 5px;
+padding-right: 5px;
+padding-bottom: 5px;
+padding-left: 5px;
+
+}
+
+.errorMessage { 
+	color: red;
+    font-weight: bold; 
+}
+
+
+/*erl.css*/
+
+img {
+	border:none;
+}
+
+.space_height10 {
+	height:10px;
+}
+.space_height12 {
+	height:12px;
+}
+.space_height15 {
+	height:15px;
+}
+.space_height20 {
+	height:20px;
+}
+.space_height25 {
+	height:25px;
+}
+.space_height30 {
+	height:30px;
+}
+
+.eRLHeader {
+vertical-align:middle;
+background-color:#c6daec; 
+padding: 5px;
+}
+
+.eRLBody {
+background:#e6e6e6;
+padding: 5px;
+}
+
+.actionbutton {
+	text-align:right;
+	padding-right:5px;
+}
+
+.actionbuttonLeft {
+	text-align:left;
+	padding-left:5px;
+}
+
+
+.eRLtbl {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: x-small;
+	background-color:#ffffff;
+}
+.eRLtbl th {
+	background-color:/*#ff9933*/ #b3b3b3;
+	color:#555555;
+	text-align:center;
+}
+.odd {
+	background-color:#ececec;
+}
+.even {
+	background-color:#ffffff;
+}
+
+.tr_odd {
+background-color:#f0f5f7;}
+
+.tr_even {
+background-color:#d3dadd;}
+
+.tbl tr {
+	padding:2px;
+}
+
+.txt290{
+width: 250px;
+}
+
+.bx95{
+width: 95%;
+}
+
+.vehicleStatusExpired
+{
+color: #ff0000;
+}
+
+.vehicleStatusRenewable
+{
+color: #ff5e00;
+}
+
+.vehicleStatusValid
+{
+color: #117011;
+}
+
+.vehicleStatusUnknown
+{
+color: #ffffff;
+}
+
+

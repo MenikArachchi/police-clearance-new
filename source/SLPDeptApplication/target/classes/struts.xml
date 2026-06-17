@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <constant name="struts.custom.i18n.resources" value="global,police"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.multipart.maxSize" value="250000"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+
+
+    <package name="default" extends="struts-default,json-default" namespace="/">
+        <interceptors>
+            <!-- login intercepter -->
+            <interceptor name="loginIntercepter" class="lk.icta.police.action.LoginInterceptor"/>
+
+            <!-- 			<interceptor name="xssInterceptor" class="lk.icta.police.util.XssInterceptor" />  -->
+
+            <!-- stack to be used for internationalisation functionality -->
+            <interceptor-stack name="customI18nStack">
+                <interceptor-ref name="i18n">
+                    <param name="parameterName">lang</param>
+                </interceptor-ref>
+                <interceptor-ref name="basicStack"/>
+            </interceptor-stack>
+
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="loginIntercepter"/>
+                <interceptor-ref name="customI18nStack"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myStack"/>
+
+        <!-- Login and Authorization - START -->
+        <global-results>
+            <result name="invalid-session" type="redirectAction">sessionInvalidate</result>
+            <result name="unauthorized" type="redirectAction">unauthorized</result>
+        </global-results>
+
+        <action name="sessionInvalidate" class="lk.icta.police.action.SessionInvalidateAction"
+                method="sessionInvalidated">
+            <result>/WEB-INF/jsp/view/login.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/login.jsp</result>
+            <result name="success">/WEB-INF/jsp/view/login.jsp</result>
+        </action>
+
+        <action name="unauthorized"
+                class="lk.icta.police.action.SessionInvalidateAction" method="unauthorized">
+            <result>/WEB-INF/jsp/view/home.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/login.jsp</result>
+            <result name="success">/WEB-INF/jsp/view/home.jsp</result>
+        </action>
+
+        <action name="home" class="lk.icta.police.action.HomeAction">
+            <result>/WEB-INF/jsp/view/home.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/home.jsp</result>
+            <result name="success">/WEB-INF/jsp/view/home.jsp</result>
+        </action>
+
+        <action name="login">
+            <result name="login">/WEB-INF/jsp/view/login.jsp</result>
+            <result>/WEB-INF/jsp/view/login.jsp</result>
+        </action>
+
+        <action name="authorizationAction" class="lk.icta.police.action.AuthorizationAction">
+            <!-- 			<interceptor-ref name="xssInterceptor"/> -->
+            <interceptor-ref name="myStack"/>
+            <result name="input">/WEB-INF/jsp/view/login.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/login.jsp</result>
+            <result name="success" type="redirectAction">home</result>
+        </action>
+
+        <action name="logout" class="lk.icta.police.action.AuthorizationAction" method="doLogout">
+            <result name="success">/WEB-INF/jsp/view/login.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/login.jsp</result>
+            <result>/WEB-INF/jsp/view/login.jsp</result>
+        </action>
+        <!-- Login and Authorization - END -->
+
+        <!-- Forgot Password - START -->
+        <action name="forgotPassword">
+            <result>/WEB-INF/jsp/view/forgotPwd.jsp</result>
+        </action>
+
+        <action name="resetPassword" class="lk.icta.police.action.ResetPasswordAction">
+            <result name="input">/WEB-INF/jsp/view/forgotPwd.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/forgotPwd.jsp</result>
+            <result>/WEB-INF/jsp/view/forgotPwd.jsp</result>
+        </action>
+        <!-- Forgot Password - END -->
+
+        <!-- Change Password - START -->
+        <action name="changePassword">
+            <result>/WEB-INF/jsp/view/changePassword.jsp</result>
+        </action>
+
+        <action name="processChangePassword" class="lk.icta.police.action.ChangePasswordAction">
+            <result name="input">/WEB-INF/jsp/view/changePassword.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/changePassword.jsp</result>
+            <result>/WEB-INF/jsp/view/changePassword.jsp</result>
+        </action>
+        <!-- Change Password - END -->
+
+        <!-- Application Verification - START -->
+        <action name="viewApplicationVerification" class="lk.icta.police.action.ApplicationVerificationAction">
+            <result>/WEB-INF/jsp/view/applicationVerification.jsp</result>
+        </action>
+
+        <action name="updateReviewStatus" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="updateReviewStatus">
+            <result name="success">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationVerification.jsp</result>
+        </action>
+
+        <action name="searchApplicationVerification" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="searchApplicationVerification">
+            <result name="success">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationVerification.jsp</result>
+        </action>
+
+        <action name="lockRecoed" class="lk.icta.police.action.ApplicationVerificationAction" method="lockRecoed">
+            <result type="json"/>
+        </action>
+
+        <action name="unlockRecoed" class="lk.icta.police.action.ApplicationVerificationAction" method="unlockRecoed">
+            <result type="json"/>
+        </action>
+
+        <action name="uploadAdditionalApplicationDocuments" class="lk.icta.police.action.EditApplicationAction" method="uploadAdditionalApplicationDocuments">
+            <result type="json"/>
+        </action>
+
+        <action name="loadAddressList" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="loadAddressList">
+            <result type="json"/>
+        </action>
+
+        <action name="saveRequestClarification" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="saveRequestClarification">
+            <result name="success">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationVerification.jsp</result>
+        </action>
+
+        <action name="getRequestClarificationCountForAppId" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="getRequestClarificationCountForAppId">
+            <result type="json"/>
+        </action>
+
+        <action name="fetchRequestClarificationFromRefNo" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="fetchRequestClarificationFromRefNo">
+            <result type="json"/>
+        </action>
+
+        <action name="saveRequestForUpdate" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="saveRequestForUpdate">
+            <result name="success">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationVerification.jsp</result>
+        </action>
+
+        <action name="viewApplicationByReferenceNo" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="viewApplicationByReferenceNo">
+            <result name="success">/WEB-INF/jsp/view/viewApplication.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/viewApplication.jsp</result>
+            <result>/WEB-INF/jsp/view/viewApplication.jsp</result>
+        </action>
+
+
+        <action name="modifyAddressListOfApplication" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="modifyAddressListOfApplication">
+            <result name="success">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/home.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationVerification.jsp</result>
+        </action>
+
+        <!-- Application Verification - END -->
+
+
+        <!-- Application review - START -->
+        <action name="viewReviewApplication" class="lk.icta.police.action.ReviewApplicationAction"
+                method="viewReviewApplication">
+            <result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+        </action>
+
+        <action name="searchReviewApplication" class="lk.icta.police.action.ReviewApplicationAction"
+                method="searchReviewApplication">
+            <result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+        </action>
+
+        <action name="updateClearenceStatus" class="lk.icta.police.action.ReviewApplicationAction"
+                method="updateClearenceStatus">
+            <result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+        </action>
+
+        <action name="updateAdverseClearenceStatus" class="lk.icta.police.action.ReviewApplicationAction"
+                method="updateAdverseClearenceStatus">
+            <result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+        </action>
+
+        <action name="loadAddressListClearence" class="lk.icta.police.action.ReviewApplicationAction"
+                method="loadAddressListClearence">
+            <result type="json"/>
+        </action>
+
+        <action name="loadEditAddress" class="lk.icta.police.action.ReviewApplicationAction" method="loadEditAddress">
+            <result type="json"/>
+        </action>
+
+        <action name="updateAddressPolice" class="lk.icta.police.action.ReviewApplicationAction"
+                method="updateAddressPolice">
+            <result type="json"/>
+        </action>
+
+        <action name="updateAddressEditPolice" class="lk.icta.police.action.ReviewApplicationAction"
+                method="updateAddressEditPolice">
+            <result type="json"/>
+        </action>
+
+        <action name="loadEmailContentPhq" class="lk.icta.police.action.ReviewApplicationAction"
+                method="loadEmailContentPhq">
+            <result type="json"/>
+        </action>
+
+        <action name="updateAddressPhq" class="lk.icta.police.action.ReviewApplicationAction" method="updateAddressPhq">
+            <result type="json"/>
+        </action>
+
+
+        <action name="updateAddressEditPhq" class="lk.icta.police.action.ReviewApplicationAction"
+                method="updateAddressEditPhq">
+            <result type="json"/>
+        </action>
+
+        <action name="sendEmailAddressEditPhq" class="lk.icta.police.action.ReviewApplicationAction"
+                method="sendEmailAddressEditPhq">
+            <result type="json"/>
+        </action>
+
+        <action name="checkAndLockCooRecord" class="lk.icta.police.action.ReviewApplicationAction"
+                method="checkAndLockCooRecord">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="checkAndRemoveLock" class="lk.icta.police.action.ReviewApplicationAction"
+                method="checkAndRemoveLock">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+
+        <action name="checkAndLockAddressRecord" class="lk.icta.police.action.ReviewApplicationAction"
+                method="checkAndLockAddressRecord">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="checkAndRemoveAddressLock" class="lk.icta.police.action.ReviewApplicationAction"
+                method="checkAndRemoveAddressLock">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="updateAddress" class="lk.icta.police.action.ReviewApplicationAction" method="updateAddress">
+            <result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+        </action>
+
+
+        <!-- Application review - END -->
+
+
+        <!-- Update police Messages - START -->
+
+        <action name="updatePoliceMessage" class="lk.icta.police.action.UpdatePoliceMessageAction"
+                method="updatePoliceMessage">
+            <result>/WEB-INF/jsp/view/updatePoliceMessage.jsp</result>
+        </action>
+
+        <action name="updatePoliceMessageRow" class="lk.icta.police.action.UpdatePoliceMessageAction"
+                method="updatePoliceMessageRow">
+            <result name="success" type="redirectAction">
+                <param name="actionName">updatePoliceMessage</param>
+                <param name="applicationId">${applicationId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/view/updatePoliceMessage.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/updatePoliceMessage.jsp</result>
+        </action>
+        <!-- Update police Messages - END -->
+
+
+        <!-- Clearance report - START -->
+        <action name="showClearanceReport" class="lk.icta.police.action.ClearanceReportAction">
+            <result name="success">/WEB-INF/jsp/view/clearancereport.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/clearancereport.jsp</result>
+            <result>/WEB-INF/jsp/view/clearancereport.jsp</result>
+        </action>
+        <action name="loadClearanceReport" class="lk.icta.police.action.ClearanceReportAction"
+                method="loadClearanceReport">
+            <result name="success">/WEB-INF/jsp/view/clearancereport.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/clearancereport.jsp</result>
+            <result>/WEB-INF/jsp/view/clearancereport.jsp</result>
+        </action>
+
+        <action name="printClearanceReportAction" class="lk.icta.police.action.ClearanceReportAction"
+                method="printClearanceReportAction">
+            <result name="success">/WEB-INF/jsp/view/clearancereportprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/clearancereport.jsp</result>
+        </action>
+
+
+        <!-- Clearance report - END -->
+
+        <!-- ||||||||||||||||||||||||||||||||| APPLICATION CLEARENCE STATUS UPDATE START ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+        <!-- APPLICATION CLEARENCE STATUS UPDATE COMMON LINKS - START -->
+        <action name="checkAndLockClearenceRecord" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="checkAndLockClearenceRecord">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="checkAndRemoveLockClearence" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="checkAndRemoveLockClearence">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="loadCommentList" class="lk.icta.police.action.CertificateIssuanceAction" method="loadCommentList">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="printcertificate" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="printCertificate">
+            <result name="success">/WEB-INF/jsp/view/printCertificate.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/home.jsp</result>
+        </action>
+
+
+        <action name="updateEmailSentStatus" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="updateEmailSentStatus">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="loadResendingDepartments" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="loadResendingDepartments">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="loadPoliceAreaListForApplication" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="loadPoliceAreaListForApplication">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="loadCurrentCommentDetailsForPoliceArea" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="loadCurrentCommentDetailsForPoliceArea">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="loadCurrentCommentDetailsForDepartment" class="lk.icta.police.action.CertificateIssuanceAction"
+                method="loadCurrentCommentDetailsForDepartment">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+
+        <!-- APPLICATION CLEARENCE STATUS UPDATE COMMON LINKS - END -->
+
+
+        <!-- ####################APPLICATION CLEARENCE STATUS UPDATE NO ADVERSE CHECK - START############################### -->
+        <action name="viewNoAdverseCheck" class="lk.icta.police.action.NoAdverseCheckAction"
+                method="viewNoAdverseCheck">
+            <result name="success">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+        </action>
+
+        <action name="searchNoAdverseCheck" class="lk.icta.police.action.NoAdverseCheckAction"
+                method="searchNoAdverseCheck">
+            <result name="success">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+        </action>
+
+        <action name="updateNicrevisionClearenceNa" class="lk.icta.police.action.NoAdverseCheckAction"
+                method="updateNicrevisionClearenceNa">
+            <result name="success">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+        </action>
+
+        <action name="updateCertificateIssuanceNa" class="lk.icta.police.action.NoAdverseCheckAction"
+                method="updateCertificateIssuanceNa">
+            <result name="success">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+        </action>
+
+        <action name="resendClearanceNoAdverse" class="lk.icta.police.action.NoAdverseCheckAction"
+                method="resendClearanceNoAdverse">
+            <result name="success">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/noadversecheck.jsp</result>
+        </action>
+        <!-- ###########################APPLICATION CLEARENCE STATUS UPDATE NO ADVERSE CHECK - END############################### -->
+
+        <!-- #################### APPLICATION CLEARENCE STATUS UPDATE ADVERSE CHECK - START############################### -->
+        <action name="viewAdverseCheck" class="lk.icta.police.action.AdverseCheckAction" method="viewAdverseCheck">
+            <result>/WEB-INF/jsp/view/adversecheck.jsp</result>
+        </action>
+
+        <action name="searchAdverseCheck" class="lk.icta.police.action.AdverseCheckAction" method="searchAdverseCheck">
+            <result>/WEB-INF/jsp/view/adversecheck.jsp</result>
+        </action>
+
+        <action name="updateNicrevisionClearenceAd" class="lk.icta.police.action.AdverseCheckAction"
+                method="updateNicrevisionClearenceAd">
+            <result>/WEB-INF/jsp/view/adversecheck.jsp</result>
+        </action>
+
+        <action name="updateCertificateIssuanceAd" class="lk.icta.police.action.AdverseCheckAction"
+                method="updateCertificateIssuanceAd">
+            <result>/WEB-INF/jsp/view/adversecheck.jsp</result>
+        </action>
+
+        <!-- ###########################APPLICATION CLEARENCE STATUS UPDATE ADVERSE CHECK - END############################### -->
+
+        <!-- #################### APPLICATION CLEARENCE STATUS OIC - START ############################### -->
+        <action name="viewOicClearence" class="lk.icta.police.action.OicClearenceAction" method="viewOicClearence">
+            <result>/WEB-INF/jsp/view/oicclearance.jsp</result>
+        </action>
+
+        <action name="searchOicClearence" class="lk.icta.police.action.OicClearenceAction" method="searchOicClearence">
+            <result>/WEB-INF/jsp/view/oicclearance.jsp</result>
+        </action>
+
+        <action name="updateCertificateIssuanceOic" class="lk.icta.police.action.OicClearenceAction"
+                method="updateCertificateIssuanceOic">
+            <result>/WEB-INF/jsp/view/oicclearance.jsp</result>
+        </action>
+        <!-- #################### APPLICATION CLEARENCE STATUS OIC - END ############################### -->
+
+        <!-- #################### APPLICATION CLEARENCE STATUS ASP - START ############################### -->
+        <action name="viewAspClearence" class="lk.icta.police.action.AspClearenceAction" method="viewAspClearence">
+            <result>/WEB-INF/jsp/view/aspclearance.jsp</result>
+        </action>
+
+        <action name="searchAspClearence" class="lk.icta.police.action.AspClearenceAction" method="searchAspClearence">
+            <result>/WEB-INF/jsp/view/aspclearance.jsp</result>
+        </action>
+
+        <action name="updateCertificateIssuanceAsp" class="lk.icta.police.action.AspClearenceAction"
+                method="updateCertificateIssuanceAsp">
+            <result>/WEB-INF/jsp/view/aspclearance.jsp</result>
+        </action>
+        <!-- #################### APPLICATION CLEARENCE STATUS ASP - END ############################### -->
+
+
+        <!-- #################### APPLICATION CLEARENCE STATUS DIG - START ############################### -->
+        <action name="viewDigClearence" class="lk.icta.police.action.DigClearenceAction" method="viewDigClearence">
+            <result>/WEB-INF/jsp/view/digclearance.jsp</result>
+        </action>
+
+        <action name="searchDigClearence" class="lk.icta.police.action.DigClearenceAction" method="searchDigClearence">
+            <result>/WEB-INF/jsp/view/digclearance.jsp</result>
+        </action>
+
+        <action name="updateCertificateIssuanceDig" class="lk.icta.police.action.DigClearenceAction"
+                method="updateCertificateIssuanceDig">
+            <result>/WEB-INF/jsp/view/digclearance.jsp</result>
+        </action>
+        <!-- #################### APPLICATION CLEARENCE STATUS DIG - END ############################### -->
+
+        <!-- #################### APPLICATION CLEARENCE STATUS DHA - START ############################### -->
+        <action name="viewDhaClearence" class="lk.icta.police.action.DhaClearenceAction" method="viewDhaClearence">
+            <result>/WEB-INF/jsp/view/dhaclearance.jsp</result>
+        </action>
+
+        <action name="searchDhaClearence" class="lk.icta.police.action.DhaClearenceAction" method="searchDhaClearence">
+            <result>/WEB-INF/jsp/view/dhaclearance.jsp</result>
+        </action>
+
+        <action name="updateCertificateIssuanceDha" class="lk.icta.police.action.DhaClearenceAction"
+                method="updateCertificateIssuanceDha">
+            <result>/WEB-INF/jsp/view/dhaclearance.jsp</result>
+        </action>
+
+        <action name="resendClearanceDha" class="lk.icta.police.action.DhaClearenceAction" method="resendClearanceDha">
+            <result>/WEB-INF/jsp/view/dhaclearance.jsp</result>
+        </action>
+        <!-- #################### APPLICATION CLEARENCE STATUS DHA - END ############################### -->
+
+
+        <!-- #################### APPLICATION CLEARENCE STATUS POSTING OFFICER - START ############################### -->
+        <action name="viewPostingOfficer" class="lk.icta.police.action.PostingOfficerAction"
+                method="viewPostingOfficer">
+            <result>/WEB-INF/jsp/view/postingofficer.jsp</result>
+        </action>
+
+        <action name="searchPostingOfficer" class="lk.icta.police.action.PostingOfficerAction"
+                method="searchPostingOfficer">
+            <result>/WEB-INF/jsp/view/postingofficer.jsp</result>
+        </action>
+
+        <action name="updateRegisteredPostNo" class="lk.icta.police.action.PostingOfficerAction"
+                method="updateRegisteredPostNo">
+            <result>/WEB-INF/jsp/view/postingofficer.jsp</result>
+        </action>
+
+        <action name="printAddresses" class="lk.icta.police.action.PostingOfficerAction" method="printAddresses">
+            <result name="success">/WEB-INF/jsp/view/printAddresses.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/postingofficer.jsp</result>
+        </action>
+
+
+        <action name="printPostList" class="lk.icta.police.action.PostingOfficerAction" method="printPostList">
+            <result name="success">/WEB-INF/jsp/view/printAddresses.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/postingofficer.jsp</result>
+        </action>
+
+        <!-- #################### APPLICATION CLEARENCE STATUS POSTING OFFICER - END ############################### -->
+
+
+        <!-- Application Details Report - START -->
+        <action name="viewApplicationDetailsReport" class="lk.icta.police.action.ApplicationDetailsReportAction">
+            <result>/WEB-INF/jsp/view/applicationDetailsReport.jsp</result>
+        </action>
+
+        <action name="searchApplicationDetailsReport" class="lk.icta.police.action.ApplicationDetailsReportAction"
+                method="searchApplicationDetailsReport">
+            <result name="success">/WEB-INF/jsp/view/applicationDetailsReport.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationDetailsReport.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationDetailsReport.jsp</result>
+        </action>
+
+        <action name="printApplicationDetailsReport" class="lk.icta.police.action.ApplicationDetailsReportAction"
+                method="printApplicationDetailReport">
+            <result name="success">/WEB-INF/jsp/view/applicationdetailsreportprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationdetailsreportprint.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationdetailsreportprint.jsp</result>
+        </action>
+
+        <action name="printApplicationDetailsReportExcel" class="lk.icta.police.action.ApplicationDetailsReportAction"
+                method="printApplicationDetailReport_Excel">
+            <result name="success">/WEB-INF/jsp/view/applicationdetailsreportprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationdetailsreportprint.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationdetailsreportprint.jsp</result>
+        </action>
+
+        <!-- Application Details Report - END -->
+
+        <!-- Daily Transaction Report - START -->
+        <action name="viewDailyTransactionReport" class="lk.icta.police.action.DailyTransactionReportAction">
+            <result>/WEB-INF/jsp/view/DailyTransactionReport.jsp</result>
+        </action>
+
+        <action name="searchDailyTransactionReport" class="lk.icta.police.action.DailyTransactionReportAction"
+                method="searchDailyTransactionReport">
+            <result name="success">/WEB-INF/jsp/view/DailyTransactionReport.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/DailyTransactionReport.jsp</result>
+            <result>/WEB-INF/jsp/view/DailyTransactionReport.jsp</result>
+        </action>
+
+        <action name="printDailyTransactionReport" class="lk.icta.police.action.DailyTransactionReportAction"
+                method="printDailyTransactionReport">
+            <result name="success">/WEB-INF/jsp/view/dailytransactioreportprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/dailytransactioreportprint.jsp</result>
+            <result>/WEB-INF/jsp/view/dailytransactioreportprint.jsp</result>
+        </action>
+
+        <action name="printDailyTransactionReportExcel" class="lk.icta.police.action.DailyTransactionReportAction"
+                method="printDailyTransactionReportExcel">
+            <result name="success">/WEB-INF/jsp/view/dailytransactioreportprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/dailytransactioreportprint.jsp</result>
+            <result>/WEB-INF/jsp/view/dailytransactioreportprint.jsp</result>
+        </action>
+
+        <!-- Daily Transaction Report - END -->
+
+        <!-- Blacklist - START -->
+        <action name="viewBlacklist" class="lk.icta.police.action.BlacklistAction">
+            <result>/WEB-INF/jsp/view/blackListReport.jsp</result>
+        </action>
+
+        <action name="searchBlacklist" class="lk.icta.police.action.BlacklistAction" method="searchBlacklist">
+            <result name="success">/WEB-INF/jsp/view/blackListReport.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/blackListReport.jsp</result>
+            <result>/WEB-INF/jsp/view/blackListReport.jsp</result>
+        </action>
+
+        <action name="printBlacklistReport" class="lk.icta.police.action.BlacklistAction" method="printBlacklistReport">
+            <result name="success">/WEB-INF/jsp/view/blacklistreportprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/blacklistreportprint.jsp</result>
+            <result>/WEB-INF/jsp/view/blacklistreportprint.jsp</result>
+        </action>
+
+        <action name="printBlacklistReportExcel" class="lk.icta.police.action.BlacklistAction"
+                method="printBlacklistReportExcel">
+            <result name="success">/WEB-INF/jsp/view/blacklistreportprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/blacklistreportprint.jsp</result>
+            <result>/WEB-INF/jsp/view/blacklistreportprint.jsp</result>
+        </action>
+
+        <!-- Blacklist - END -->
+
+        <!-- Add Manual Application START-->
+
+        <action name="application" class="lk.icta.police.action.ApplicationAction">
+            <result>/WEB-INF/jsp/view/application.jsp</result>
+        </action>
+
+        <action name="loadPreviousApplication" class="lk.icta.police.action.ApplicationAction"
+                method="loadPreviousApplication">
+            <result name="success">/WEB-INF/jsp/view/application.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/application.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/application.jsp</result>
+        </action>
+
+        <action name="verifyApplication" class="lk.icta.police.action.ApplicationAction" method="verifyApplication">
+            <result name="success">/WEB-INF/jsp/view/application.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/application.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/application.jsp</result>
+        </action>
+
+        <action name="saveApplication" class="lk.icta.police.action.ApplicationAction" method="saveApplication">
+            <!-- 			<result name="success" type="redirectAction">home?msg=suc</result> -->
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewApplicationByReferenceNo</param>
+                <param name="msg">suc</param>
+                <param name="referenceNo">${applicationReferenceNumber}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/view/application.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/application.jsp</result>
+        </action>
+
+        <action name="uploadFile" class="lk.icta.police.action.ApplicationAction" method="uploadFile">
+            <result name="success" type="json"/>
+            <result name="input" type="json"/>
+        </action>
+
+        <action name="loadCommissionersByCountry" class="lk.icta.police.action.ApplicationAction"
+                method="loadCommisionerVOList">
+            <result type="json"/>
+        </action>
+
+        <action name="loadCommissionerById" class="lk.icta.police.action.ApplicationAction" method="loadCommissionVO">
+            <result type="json"/>
+        </action>
+
+        <!-- Add Manual Application END -->
+
+        <!-- Master Files - Start -->
+        <action name="populateMasterFiles" class="lk.icta.police.action.MasterFileAction" method="populateMasterFiles">
+            <result name="success">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result>/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+        </action>
+
+        <action name="saveCertificateSigning" class="lk.icta.police.action.MasterFileAction"
+                method="saveCertificateSigning">
+            <result name="success">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result>/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+        </action>
+
+        <action name="saveHighCommissions" class="lk.icta.police.action.MasterFileAction" method="saveHighCommissions">
+            <result name="success">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result>/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+        </action>
+
+        <action name="loadAvailableHighCommissionerList" class="lk.icta.police.action.MasterFileAction"
+                method="loadAvailableHighCommissionerList">
+            <result type="json"/>
+        </action>
+
+        <action name="updateHighCommissions" class="lk.icta.police.action.MasterFileAction"
+                method="updateHighCommissions">
+            <result name="success">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result>/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+        </action>
+
+        <action name="deleteHighCommissionsForm" class="lk.icta.police.action.MasterFileAction"
+                method="deleteHighCommissionsForm">
+            <result name="success">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+            <result>/WEB-INF/jsp/view/viewMasterFiles.jsp</result>
+        </action>
+        <!-- Master Files - END -->
+
+
+        <!-- Application review - START -->
+        <action name="viewPrintList" class="lk.icta.police.action.ExternalDeptPrintSearchAction" method="viewPrintList">
+            <result name="success">/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+            <result>/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+        </action>
+
+        <action name="searchPrintList" class="lk.icta.police.action.ExternalDeptPrintSearchAction"
+                method="searchPrintList">
+            <result name="success">/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+            <result>/WEB-INF/jsp/view/externalPrintApplicationList.jsp</result>
+        </action>
+
+        <action name="loadSelectedApplicationList" class="lk.icta.police.action.ExternalDeptPrintSearchAction"
+                method="loadSelectedApplicationList">
+            <result name="success">/WEB-INF/jsp/view/printExternalApplicationList.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/printExternalApplicationList.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/printExternalApplicationList.jsp</result>
+            <result>/WEB-INF/jsp/view/printExternalApplicationList.jsp</result>
+        </action>
+        <!-- Application review - END -->
+
+        <!-- Application Status - START -->
+        <action name="searchApplicationStatus" class="lk.icta.police.action.ApplicationStatusViewAction"
+                method="searchApplicationStatus">
+            <result>/WEB-INF/jsp/view/searchApplicationStatus.jsp</result>
+        </action>
+
+        <action name="viewApplicationStatus" class="lk.icta.police.action.ApplicationStatusViewAction"
+                method="viewApplicationStatus">
+            <result>/WEB-INF/jsp/view/viewApplicationStatus.jsp</result>
+        </action>
+
+        <action name="printApplicationStatus" class="lk.icta.police.action.ApplicationStatusViewAction"
+                method="printApplicationStatus">
+            <result>/WEB-INF/jsp/view/printApplicationStatus.jsp</result>
+        </action>
+        <!-- Application Status - END -->
+
+        <!-- Application Status - START -->
+        <action name="searchPoliceForm" class="lk.icta.police.action.PoliceFormAction" method="searchPoliceForm">
+            <result name="success">/WEB-INF/jsp/view/policeform.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/home.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/home.jsp</result>
+        </action>
+
+        <action name="printPoliceForm" class="lk.icta.police.action.PoliceFormAction" method="printPoliceForm">
+            <result name="success">/WEB-INF/jsp/view/policeformprint.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/policeform.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/home.jsp</result>
+        </action>
+        <!-- Application Status - END -->
+
+        <!-- Application Verification Application Edit- Start -->
+        <action name="loadEditApplicationVerification" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="loadEditApplicationVerification">
+            <result type="json"/>
+        </action>
+
+        <action name="editApplicationFromVerification" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="editApplicationFromVerification">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/applicationVerification.jsp</result>
+            <result>/WEB-INF/jsp/view/applicationVerification.jsp</result>
+        </action>
+        <!-- Application Verification Application Edit- End -->
+
+        <!-- Application Edit- Start -->
+        <action name="loadEditApplication" class="lk.icta.police.action.EditApplicationAction">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/editApplication.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/editApplication.jsp</result>
+            <result>/WEB-INF/jsp/view/editApplication.jsp</result>
+        </action>
+
+        <action name="updateApplication" class="lk.icta.police.action.EditApplicationAction" method="updateApplication">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/editApplication.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/editApplication.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/editApplication.jsp</result>
+            <result>/WEB-INF/jsp/view/editApplication.jsp</result>
+        </action>
+
+        <action name="loadEditApplicationAfterVerification" class="lk.icta.police.action.EditApplicationAction"
+                method="loadEditApplicationAfterVerification">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/editApplicationAfterVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/editApplicationAfterVerification.jsp</result>
+            <result>/WEB-INF/jsp/view/editApplicationAfterVerification.jsp</result>
+        </action>
+
+        <action name="updateApplicationAfterVerification" class="lk.icta.police.action.EditApplicationAction"
+                method="updateApplicationAfterVerification">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/editApplicationAfterVerification.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/editApplicationAfterVerification.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/editApplicationAfterVerification.jsp</result>
+            <result>/WEB-INF/jsp/view/editApplicationAfterVerification.jsp</result>
+        </action>
+
+        <!-- Application Edit- End -->
+
+        <!-- HOME COUNT START -->
+        <action name="listCountApplicationsToBeVerified" class="lk.icta.police.action.HomeAction"
+                method="listCountApplicationsToBeVerified">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="listCountResubmissionPending" class="lk.icta.police.action.HomeAction"
+                method="listCountResubmissionPending">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="listCountRevisionUpdatesPending" class="lk.icta.police.action.HomeAction"
+                method="listCountRevisionUpdatesPending">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="listCountExternalClearancePending" class="lk.icta.police.action.HomeAction"
+                method="listCountExternalClearancePending">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="listCountPoliceClearancePending" class="lk.icta.police.action.HomeAction"
+                method="listCountPoliceClearancePending">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="listCountCertificateCheckingPending" class="lk.icta.police.action.HomeAction"
+                method="listCountCertificateCheckingPending">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+
+        <action name="listCountExternalClearancePendingByDepartment" class="lk.icta.police.action.HomeAction"
+                method="listCountExternalClearancePendingByDepartment">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+
+        <action name="listCountInternalApprovalPending" class="lk.icta.police.action.HomeAction"
+                method="listCountInternalApprovalPending">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+        <!-- HOME COUNT END -->
+
+        <!-- SEARCH EDIT APPLICATION START -->
+
+        <action name="loadSearchEditApplication" class="lk.icta.police.action.EditApplicationAction"
+                method="loadSearchEditApplication">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/searchEditApplication.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/searchEditApplication.jsp</result>
+            <result>/WEB-INF/jsp/view/searchEditApplication.jsp</result>
+        </action>
+
+        <action name="loadSearchUploadAdditionalDocs" class="lk.icta.police.action.EditApplicationAction"
+                method="loadSearchUploadAdditionalDocs">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/searchUploadAdditionalDocs.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/searchUploadAdditionalDocs.jsp</result>
+            <result>/WEB-INF/jsp/view/searchUploadAdditionalDocs.jsp</result>
+        </action>
+
+        <action name="searchUploadDocumentApplication" class="lk.icta.police.action.EditApplicationAction"
+                method="searchUploadDocumentApplication">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/uploadDocument.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/uploadDocument.jsp</result>
+            <result>/WEB-INF/jsp/view/uploadDocument.jsp</result>
+        </action>
+
+        <action name="searchEditApplication" class="lk.icta.police.action.EditApplicationAction"
+                method="searchEditApplication">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <!-- SEARCH EDIT APPLICATION END -->
+
+		<action name="searchApplicationForUploadAndPrint" class="lk.icta.police.action.EditApplicationAction"
+                method="searchApplicationForUploadAndPrint">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+        
+        <action name="validateDateRange" class="lk.icta.police.action.ApplicationAction" method="validateDateRange">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="viewLockedRecords" class="lk.icta.police.action.LockedRecordAction" method="viewLockedRecords">
+            <result name="success">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result>/WEB-INF/jsp/view/lockedRecords.jsp</result>
+        </action>
+
+        <action name="searchLockedRecords" class="lk.icta.police.action.LockedRecordAction"
+                method="searchLockedRecords">
+            <result name="success">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result>/WEB-INF/jsp/view/lockedRecords.jsp</result>
+        </action>
+
+        <action name="unlockRecords" class="lk.icta.police.action.LockedRecordAction" method="unlockRecords">
+            <result name="success">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result name="input">/WEB-INF/jsp/view/lockedRecords.jsp</result>
+            <result>/WEB-INF/jsp/view/lockedRecords.jsp</result>
+        </action>
+        
+        <action name="loadSearchPrintApplication" class="lk.icta.police.action.EditApplicationAction"
+                method="loadSearchUploadAdditionalDocs">
+            <result type="redirect" name="success">/WEB-INF/jsp/view/searchPrintApplication.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/searchPrintApplication.jsp</result>
+            <result>/WEB-INF/jsp/view/searchPrintApplication.jsp</result>
+        </action>
+        
+        <action name="viewPrintApplicationByReferenceNo" class="lk.icta.police.action.ApplicationVerificationAction"
+                method="viewApplicationByReferenceNo">
+            <result name="success">/WEB-INF/jsp/view/printApplication.jsp</result>
+            <result name="error">/WEB-INF/jsp/view/printApplication.jsp</result>
+            <result>/WEB-INF/jsp/view/printApplication.jsp</result>
+        </action>
+
+    </package>
+
+</struts>

@@ -1,0 +1,37 @@
+
+/* eRevenue portal */
+/*.eRLPortletHeader { margin-top:38px;} */
+#es-content h2 {font-size: 1em;}
+#es-content h3{font-size: 0.95em;}
+#es-content .button-warapper{text-align: center;}
+#es-container .social-row {float: none; text-align: center;}
+
+#es-content .display-change {display:  none!important}
+#es-content .display-change-none{display: block}
+
+#es-content .button-center input[type="submit"], input[type="button"], button { float:none;margin-left:0}
+#es-content .button-center {text-align:center;}
+#es-content .status-detail-div {margin-left: 1em;}
+#es-content  input[type="text"] { width: 96%}
+#es-content select{width: 96%;}
+#es-container .button {float:none}
+#es-content .data-row .col-5 #butValidateInsurance {float: right ;margin: 10px 0 0 10px}
+#es-content .data-row .col-5 #butValidateVet {float: right; margin: 10px 0 0 10px}
+#es-content .registerd-name ,#es-content .registerd-loc {width: 100%}
+
+#es-content .es-title .tittle-name {width: 92%;}
+#es-content .es-title .es-help {padding: 0 10px 5px 0;}
+
+/* erl Header */
+#es-header .logo-erl{background:url(../images/logo_erl_mobile.png); height:33px; background-repeat:no-repeat; width:3%;margin-left:2px;}
+#es-header .header-erl{height:100px;}
+#es-header .title-erl{width:89%;}
+#es-header .title-si{font-size:13px;}
+#es-header .title-ta{font-size:10px;}
+#es-header .title-en{font-size:12px;}
+
+
+
+
+
+

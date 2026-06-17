@@ -1,0 +1,365 @@
+.alert {
+	padding: 5px;
+/* 	margin-bottom: 21px; */
+	border: 1px solid transparent;
+	border-radius: 4px
+}
+
+.alert-danger,
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+.alert-danger h4,
+.alert-error h4 {
+  color: #b94a48;
+}
+
+.alert-info {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-info h4 {
+  color: #3a87ad;
+}
+
+.alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.es-footer{
+	background: none repeat scroll 0 0 #E0E1FC;
+	margin: auto;
+	color: #333;
+	text-align: center;
+	padding:5px;
+}
+.input_div{
+	border: 1px solid #ccc;
+	padding: 2px;	
+	background-color: #fff;
+	min-height: 24px;
+}
+.legend_div{
+	border: 1px solid #ccc;
+	padding: 2px;	
+	background-color: #fff;
+	min-height: 24px;
+}
+.bold-label{
+	font-weight: bold !important;
+}
+
+.rdonly:hover{
+   cursor: pointer;
+}
+
+.mandatory_field{
+	color:#ff0000;
+}
+
+.highlight_box{
+	margin: auto;
+	width: 70%;
+	border: 1px solid #a3d2f6;
+	padding: 5px;
+	background-color: #c0ddf5;
+	
+}
+
+.middle_content{
+	
+	margin: 2px 2px 5px 2px;
+}
+
+.top_banner{
+	position: relative;
+	display: table;
+	height:110px;
+	width:100%;
+	max-width: 100%;
+	text-align: left;
+	background-color: #E0E1FC;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 2px 2px 0 #C2C2C2;
+    box-shadow: 0 2px 2px 0 #C2C2C2;
+}
+
+.logo {
+    color: #000066;
+    font-family: Arial;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+.mediumtray {
+    background-color: #027fc2 ;
+    border-color: #235296;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 0px;
+    max-height: 340px;
+    overflow-x: visible;
+    padding: 4px 15px;
+}
+
+.mediatext {
+    color: #ffffff;
+    display: inline;
+}
+
+.mediatext a{
+    color: #ffffff;
+    display: inline;
+}
+
+
+#es-container {
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    box-shadow: 0 0 10px 4px rgba(224, 225, 252, 0.75);
+	-moz-box-shadow: 0px 0px 10px 4px rgba(224, 225, 252, 0.75);
+	-webkit-box-shadow: 0px 0px 10px 4px rgba(224, 225, 252, 0.75);
+    margin: auto;
+    overflow: hidden;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
+    
+    
+}
+
+/* ----iframe styles---- */
+
+#es-content {	
+	padding: 0px 10px;
+}
+
+#es-container .social-row {
+    float: right;
+    padding: 20px 5px 10px 0;
+    text-align: right;
+}
+
+#es-container .social-buttons {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 6px;
+}
+
+
+a {
+    color: #0046B0;
+    text-decoration: none;
+}
+
+.social-image-round {
+    border-radius: 3px;
+    height: 25px;
+    width: 25px;
+}
+
+.es-title {
+  padding-bottom: 9px;
+  margin: 20px 0 30px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+#es-content .es-eservice-title{
+float: left;
+width: 100%;
+padding-bottom: 2px;
+margin: 19px 0 8px 3px;
+border-bottom: 1px solid #eeeeee;
+}
+
+.theme1 #es-content .tittle-name {
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+
+}
+#es-content .tittle-name {
+    float: left;
+    font-size: 18px;
+    font-weight:600
+}
+
+#es-content h2 {
+margin: 0;
+padding: 5px;}
+
+h2 {
+	font-size: 1.1em;
+}
+
+#es-content .tittle-help-icon {
+    float: right;
+    font-size: 14px;
+    height: 27px;
+    padding-right: 5px;
+    padding-top: 6px;
+    text-align: right;
+
+}
+
+#es-content .tittle-help-icon .tittle-help-icon-img {
+    height: auto;
+    vertical-align: top;
+    width: auto;
+}
+
+.well_fixed_content {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    min-height: 145px;
+    padding: 8px;
+}
+
+.vehicle_collapsible_details{
+	display: none;
+	 padding: 5px 0px;
+}
+
+.well_fixed_bottom {
+    min-height: 25px;
+    padding: 0px 0px;
+    float: left;
+}
+
+.custom_list_table{
+	list-style-type: none;
+}
+
+.custom_list_table li{
+	margin: 0px 0px 12px 0px;
+}
+
+.custom_label{
+	font-size: 13px;
+	font-weight: bold;	
+}
+
+.detail_table_wrapper{
+	margin: auto;
+	border:1px solid #E6E6E6;
+	padding: 5px;
+}
+
+.custom_button_div{
+	margin: auto;
+    padding: 10px 0 0;
+    text-align: right;
+	
+}
+  
+ .button-row{
+ 	width: 100%;
+ 	text-align: right;
+ }
+ 
+ .login_home_text{
+    font-size: 14px;
+    padding:5px 0px;
+ }
+/* iframe styles */
+
+
+.theme1 #es-content .well_fixed_content{ 
+    font-size: 12px;
+    min-height: 106px;
+    margin-bottom: 3px;
+}
+
+.theme1 #es-content h4, h5, h6 {
+    margin-bottom: 10.5px;
+    margin-top: 4.5px;
+}
+.theme1 #es-content h4, .h4 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.theme1 #es-content .well{
+	margin-bottom: 3px;
+    padding: 9px;
+	
+}
+.theme1 #es-content input[type="submit"], .theme1 #es-content input[type="button"], .theme1 #es-content input[type="reset"], .theme1 #es-content button {
+    margin: 5px 0 0 0;
+}
+.theme1 #es-content {
+    background-color: #F8F8F8;
+    font-size: 13px;
+}
+
+.theme1 #es-content ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix{
+	background:#C3DEEF;	
+}
+
+.theme1 #es-content .ui-widget-header{
+	background:#C3DEEF;	
+}
+
+/* iframe css end */
+
+
+.es-powered-by {
+    font-size: 0.85em;
+    font-style: italic;
+    padding: 6px 5px 0px 2px;
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+
+/* css home page */
+.well li {
+    font-family: Arial,Helvetica,Verdana,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    list-style-type: none;
+    padding:10px 5px;
+}
+
+
+
+.custom li{
+	 list-style-type: decimal;
+}
+
+ .new_bullet li {
+    list-style: square outside url("../images/left_bullet.jpg");
+} 
+
+ .new_star li {
+    list-style: square outside url("../images/star_icon.png");
+}
+
+.ui-datepicker-header select {
+     color: #000;
+}

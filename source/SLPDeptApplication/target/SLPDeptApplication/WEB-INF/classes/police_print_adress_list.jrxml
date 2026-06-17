@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="police_print_adress_list" pageWidth="675" pageHeight="300" orientation="Landscape" columnWidth="635" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4e3c1565-3905-4d20-b860-4d060c7ba72f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="certificatePostalAddress" class="java.lang.String"/>
+	<field name="certificatePostAddressLineOne" class="java.lang.String"/>
+	<field name="certificatePostAddressLineTwo" class="java.lang.String"/>
+	<field name="certificatePostAddressCity" class="java.lang.String"/>
+	<field name="certificatePostAddressState" class="java.lang.String"/>
+	<field name="certificatePostAddressPostal" class="java.lang.String"/>
+	<field name="certificatePostAddressCountryName" class="java.lang.String"/>
+	<field name="referenceNo" class="java.lang.String"/>
+	<field name="applicantNameAsNic" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="254" splitType="Immediate">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="476683a1-088f-42f5-8f1b-6ac8a4edb5cc" x="0" y="0" width="275" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referenceNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="72026437-f530-4dfb-8237-b18cd47daf42" x="11" y="114" width="166" height="16"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Officer In Charge,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72026437-f530-4dfb-8237-b18cd47daf42" x="11" y="129" width="166" height="16"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Police Clearance Branch,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72026437-f530-4dfb-8237-b18cd47daf42" x="11" y="144" width="166" height="16"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[17th Floor,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72026437-f530-4dfb-8237-b18cd47daf42" x="11" y="159" width="166" height="16"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Suhurupaya, Battaramulla,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72026437-f530-4dfb-8237-b18cd47daf42" x="11" y="174" width="166" height="16"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sri Lanka.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="476683a1-088f-42f5-8f1b-6ac8a4edb5cc" x="341" y="114" width="294" height="21"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificatePostalAddress}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement uuid="931e57f8-5a30-4f56-9181-6a475bdd83c8" x="0" y="243" width="635" height="1"/>
+			</break>
+		</band>
+	</detail>
+</jasperReport>

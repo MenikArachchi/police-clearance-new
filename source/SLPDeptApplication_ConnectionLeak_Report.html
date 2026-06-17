@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLPDeptApplication — MySQL Connection Leak Analysis Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #1a1a1a; background: #fff; padding: 30px 40px; }
+  h1 { font-size: 20px; color: #1a237e; border-bottom: 3px solid #1a237e; padding-bottom: 8px; margin-bottom: 6px; }
+  .subtitle { font-size: 12px; color: #555; margin-bottom: 24px; }
+  h2 { font-size: 15px; color: #1a237e; margin: 28px 0 10px 0; border-left: 4px solid #1a237e; padding-left: 10px; }
+  h3 { font-size: 13px; color: #333; margin: 16px 0 6px 0; font-weight: bold; }
+  p { margin-bottom: 8px; line-height: 1.6; }
+  pre { background: #f4f4f8; border: 1px solid #d0d0e0; border-radius: 4px; padding: 12px 14px; font-family: "Courier New", Courier, monospace; font-size: 11.5px; line-height: 1.5; overflow-x: auto; margin: 8px 0 12px 0; white-space: pre-wrap; word-break: break-all; }
+  code { font-family: "Courier New", Courier, monospace; background: #eef; padding: 1px 4px; border-radius: 3px; font-size: 11.5px; }
+  .badge-critical { display: inline-block; background: #c62828; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px; vertical-align: middle; margin-left: 6px; }
+  .badge-medium   { display: inline-block; background: #e65100; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px; vertical-align: middle; margin-left: 6px; }
+  .badge-fix      { display: inline-block; background: #2e7d32; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 10px; vertical-align: middle; margin-left: 6px; }
+  .filepath { font-family: "Courier New", monospace; font-size: 11px; background: #e8eaf6; color: #1a237e; padding: 4px 10px; border-radius: 3px; display: inline-block; margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0 20px 0; font-size: 12px; }
+  th { background: #1a237e; color: #fff; text-align: left; padding: 8px 10px; }
+  td { border: 1px solid #ccc; padding: 7px 10px; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5f5f5; }
+  .highlight-old { background: #fff3e0; border-left: 3px solid #e65100; padding: 2px 6px; }
+  .highlight-new { background: #e8f5e9; border-left: 3px solid #2e7d32; padding: 2px 6px; }
+  .section-box { border: 1px solid #c5cae9; border-radius: 5px; padding: 14px 16px; margin-bottom: 20px; }
+  .label-old { font-size: 11px; font-weight: bold; color: #c62828; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .label-new { font-size: 11px; font-weight: bold; color: #2e7d32; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .toc { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 14px 18px; margin-bottom: 26px; display: inline-block; min-width: 340px; }
+  .toc h4 { font-size: 13px; color: #1a237e; margin-bottom: 8px; }
+  .toc ol { padding-left: 18px; }
+  .toc li { margin-bottom: 4px; line-height: 1.5; }
+  .toc a { color: #1a237e; text-decoration: none; }
+  hr { border: none; border-top: 1px solid #e0e0e0; margin: 28px 0; }
+  .note { background: #fff8e1; border-left: 4px solid #fbc02d; padding: 8px 12px; font-size: 12px; border-radius: 2px; margin-bottom: 10px; }
+  @media print {
+    body { padding: 15px 20px; }
+    pre { page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+    .section-box { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>SLPDeptApplication — MySQL Connection Leak Analysis Report</h1>
+<p class="subtitle">Project: esPolice &nbsp;|&nbsp; Module: SLPDeptApplication / SLPCommonFramework &nbsp;|&nbsp; Date: 2026-02-27</p>
+
+<div class="toc">
+  <h4>Table of Contents</h4>
+  <ol>
+    <li><a href="#summary">Executive Summary</a></li>
+    <li><a href="#root-causes">Root Causes Overview</a></li>
+    <li><a href="#fix1">Fix 1 — Double Static Init Block (DatabaseManager)</a></li>
+    <li><a href="#fix2">Fix 2 — New Connection Per Result Row (DailyTransactionReportDAO)</a></li>
+    <li><a href="#fix3">Fix 3 — Connection Closed Twice (CertificateIssuanceBusiness)</a></li>
+    <li><a href="#filetable">File Change Summary Table</a></li>
+  </ol>
+</div>
+
+<!-- ===================== SUMMARY ===================== -->
+<h2 id="summary">1. Executive Summary</h2>
+<div class="section-box">
+  <p>
+    When <strong>SLPDeptApplication</strong> runs on the server, the number of active MySQL connections keeps growing
+    until the database connection pool is exhausted and the application fails with a "cannot connect to database" error.
+  </p>
+  <p>
+    Code review identified <strong>three confirmed root causes</strong>:
+  </p>
+  <ol style="padding-left:20px; line-height:2;">
+    <li>The <code>DatabaseManager</code> class initialises the datasource <strong>twice</strong> on every application startup due to a duplicate <code>static</code> block.</li>
+    <li><strong>Most critical:</strong> The <code>DailyTransactionReportDAO</code> opens a brand-new database connection for <strong>every single row</strong> returned by the Daily Transaction Report query. If the report returns 200 rows, 200 extra connections are opened in a tight loop.</li>
+    <li>The <code>CertificateIssuanceBusiness.updateApplicationCertificatePrintedStatus()</code> method closes the pooled connection <strong>twice</strong> — once inside the <code>try</code> body and again in the <code>finally</code> block — which can corrupt the pool's internal connection tracking.</li>
+  </ol>
+</div>
+
+<!-- ===================== ROOT CAUSES ===================== -->
+<h2 id="root-causes">2. Root Causes Overview</h2>
+<table>
+  <tr>
+    <th>#</th>
+    <th>File</th>
+    <th>Method / Location</th>
+    <th>Problem</th>
+    <th>Severity</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td><code>DatabaseManager.java</code></td>
+    <td>Static initializer block (lines 59–61)</td>
+    <td><code>init()</code> called twice on startup — double JNDI lookup, double datasource assignment</td>
+    <td><span class="badge-medium">MEDIUM</span></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><code>DailyTransactionReportDAO.java</code></td>
+    <td><code>getApplicationPreviousReferenceNoByReferenceNo()</code> called per row inside result set loop</td>
+    <td>Opens a <strong>new DB connection for every row</strong> in the report result set. 200 rows = 200 extra connections per report request.</td>
+    <td><span class="badge-critical">CRITICAL</span></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><code>CertificateIssuanceBusiness.java</code></td>
+    <td><code>updateApplicationCertificatePrintedStatus()</code> lines 870 and 885</td>
+    <td>Connection is closed inside the <code>try</code> body AND again in <code>finally</code> — double-close corrupts pool state</td>
+    <td><span class="badge-medium">MEDIUM</span></td>
+  </tr>
+</table>
+
+<hr>
+
+<!-- ===================== FIX 1 ===================== -->
+<h2 id="fix1">3. Fix 1 — Double Static Init Block <span class="badge-medium">MEDIUM</span></h2>
+
+<p class="filepath">SLPCommonFramework/src/main/java/lk/icta/police/framework/database/DatabaseManager.java</p>
+
+<p>The class contains two <code>static { }</code> initializer blocks. In non-UT (server) mode, the first block calls <code>DatabaseManager.init()</code> and then the second block calls it again unconditionally. This means <code>prepareDataSource()</code> executes twice every time the application starts.</p>
+
+<h3>Existing Code (lines 37–61)</h3>
+<div class="label-old">&#10007; Current Code — Problem</div>
+<pre>static {
+    mode = CommonUtil.getValueFromFile("mode", "mode");
+    LOGGER.info("DatabaseManager :: mode - " + mode);
+    if (UT_MODE.equals(mode)) {
+        driver = CommonUtil.getValueFromFile("mode", "driver");
+        LOGGER.info("DatabaseManager :: driver - " + driver);
+        urlPOL = CommonUtil.getValueFromFile("mode", "urlPOL");
+        LOGGER.info("DatabaseManager :: urlPOL - " + urlPOL);
+        polDBUserName = CommonUtil.getValueFromFile("mode", "polDBUserName");
+        LOGGER.info("DatabaseManager :: polDBUserName - " + polDBUserName);
+        polDBPassword = CommonUtil.getValueFromFile("mode", "polDBPassword");
+        LOGGER.info("DatabaseManager :: polDBPassword - " + polDBPassword);
+    } else {
+        DatabaseManager.init();
+    }
+}
+
+// Stops initialization of it's object
+private DatabaseManager() {
+
+}
+
+static {
+    DatabaseManager.init();   // ← PROBLEM: calls init() again unconditionally
+}</pre>
+
+<h3>Change To</h3>
+<div class="label-new">&#10003; Fixed Code — Remove the second static block</div>
+<pre>static {
+    mode = CommonUtil.getValueFromFile("mode", "mode");
+    LOGGER.info("DatabaseManager :: mode - " + mode);
+    if (UT_MODE.equals(mode)) {
+        driver = CommonUtil.getValueFromFile("mode", "driver");
+        LOGGER.info("DatabaseManager :: driver - " + driver);
+        urlPOL = CommonUtil.getValueFromFile("mode", "urlPOL");
+        LOGGER.info("DatabaseManager :: urlPOL - " + urlPOL);
+        polDBUserName = CommonUtil.getValueFromFile("mode", "polDBUserName");
+        LOGGER.info("DatabaseManager :: polDBUserName - " + polDBUserName);
+        polDBPassword = CommonUtil.getValueFromFile("mode", "polDBPassword");
+        LOGGER.info("DatabaseManager :: polDBPassword - " + polDBPassword);
+    } else {
+        DatabaseManager.init();
+    }
+}
+
+// Stops initialization of it's object
+private DatabaseManager() {
+
+}
+
+// ← DELETE the entire second static block (lines 59-61). It is removed.</pre>
+
+<div class="note">
+  <strong>What to delete:</strong> Remove these 3 lines entirely from the file:
+  <pre style="margin-top:6px;">static {
+    DatabaseManager.init();
+}</pre>
+</div>
+
+<hr>
+
+<!-- ===================== FIX 2 ===================== -->
+<h2 id="fix2">4. Fix 2 — New Connection Opened Per Result Row <span class="badge-critical">CRITICAL</span></h2>
+
+<p class="filepath">SLPCommonFramework/src/main/java/lk/icta/police/framework/dao/DailyTransactionReportDAO.java</p>
+
+<p>
+  <code>fetchApplicationVerificationList()</code> receives a <code>Connection conn</code> from its caller.
+  While iterating the report's <code>ResultSet</code>, it calls <code>getConstructedApplicationFromResultSet()</code>
+  for each row, which internally calls <code>getApplicationPreviousReferenceNoByReferenceNo()</code>.
+  That private method <strong>opens a completely new DB connection</strong> from the pool for every single row.
+</p>
+<p>
+  If the report returns 500 rows and 3 users run the report at the same time, that is
+  <strong>1,500 extra connections</strong> opened in seconds — exhausting any reasonable pool size.
+</p>
+
+<h3>Step 1 — Existing call site in <code>fetchApplicationVerificationList</code> (lines 68–72)</h3>
+<div class="label-old">&#10007; Current Code</div>
+<pre>} else {
+    do {
+        dailyTransVO = new DailyTransactionVO();
+        dailyTransVO = getConstructedApplicationFromResultSet(rst);  // ← does NOT pass conn
+        dailyTransVOs.add(dailyTransVO);
+    } while (rst.next());
+}</pre>
+
+<div class="label-new">&#10003; Change To</div>
+<pre>} else {
+    do {
+        dailyTransVO = new DailyTransactionVO();
+        dailyTransVO = getConstructedApplicationFromResultSet(rst, conn);  // ← pass existing conn
+        dailyTransVOs.add(dailyTransVO);
+    } while (rst.next());
+}</pre>
+
+<h3>Step 2 — Existing <code>getConstructedApplicationFromResultSet</code> (lines 86–105)</h3>
+<div class="label-old">&#10007; Current Code</div>
+<pre>public DailyTransactionVO getConstructedApplicationFromResultSet(ResultSet rst) throws SQLException {
+    DailyTransactionVO dailytransactionVO = new DailyTransactionVO();
+
+    String referenceNo = rst.getString(DBConstant.APPLICATION_COL.REFERENCE_NO);
+    dailytransactionVO.setApplicationReferenceNo(referenceNo);
+    dailytransactionVO.setTransactionReferenceNo(rst.getString(DBConstant.TRANSACTION_COL.TRANSACTION_REFERENCE_NO));
+    dailytransactionVO.setPaymentDate(rst.getTimestamp(DBConstant.TRANSACTION_COL.PAYMENT_DATE));
+    dailytransactionVO.setTotalFee(rst.getBigDecimal(DBConstant.TRANSACTION_COL.TOTAL_FEE));
+    dailytransactionVO.setConvenienceFee(rst.getBigDecimal(DBConstant.TRANSACTION_COL.CONVENIENCE_FEE));
+    dailytransactionVO.setPaymentStatus(rst.getString(DBConstant.TRANSACTION_COL.PAYMENT_STATUS));
+    dailytransactionVO.setApplicationType(rst.getString(DBConstant.APPLICATION_COL.APPLICATION_TYPE));
+
+    String applicationStatus = getApplicationPreviousReferenceNoByReferenceNo(referenceNo);  // ← no conn passed
+    dailytransactionVO.setApplicationStatus(applicationStatus);
+
+    return dailytransactionVO;
+}</pre>
+
+<div class="label-new">&#10003; Change To — add Connection parameter</div>
+<pre>public DailyTransactionVO getConstructedApplicationFromResultSet(ResultSet rst, Connection conn) throws SQLException {
+    DailyTransactionVO dailytransactionVO = new DailyTransactionVO();
+
+    String referenceNo = rst.getString(DBConstant.APPLICATION_COL.REFERENCE_NO);
+    dailytransactionVO.setApplicationReferenceNo(referenceNo);
+    dailytransactionVO.setTransactionReferenceNo(rst.getString(DBConstant.TRANSACTION_COL.TRANSACTION_REFERENCE_NO));
+    dailytransactionVO.setPaymentDate(rst.getTimestamp(DBConstant.TRANSACTION_COL.PAYMENT_DATE));
+    dailytransactionVO.setTotalFee(rst.getBigDecimal(DBConstant.TRANSACTION_COL.TOTAL_FEE));
+    dailytransactionVO.setConvenienceFee(rst.getBigDecimal(DBConstant.TRANSACTION_COL.CONVENIENCE_FEE));
+    dailytransactionVO.setPaymentStatus(rst.getString(DBConstant.TRANSACTION_COL.PAYMENT_STATUS));
+    dailytransactionVO.setApplicationType(rst.getString(DBConstant.APPLICATION_COL.APPLICATION_TYPE));
+
+    String applicationStatus = getApplicationPreviousReferenceNoByReferenceNo(referenceNo, conn);  // ← pass conn
+    dailytransactionVO.setApplicationStatus(applicationStatus);
+
+    return dailytransactionVO;
+}</pre>
+
+<h3>Step 3 — Existing <code>getApplicationPreviousReferenceNoByReferenceNo</code> (lines 107–139)</h3>
+<div class="label-old">&#10007; Current Code — opens new connection per row</div>
+<pre>private String getApplicationPreviousReferenceNoByReferenceNo(String referenceNumber) {
+    PreparedStatement pstm = null;
+    ResultSet rst = null;
+    Connection con = null;             // ← new connection declared
+
+    String applicationStatus = "";
+    try {
+        con = DatabaseManager.getPOLDBConnection();  // ← NEW CONNECTION OPENED FOR EVERY ROW
+        pstm = con.prepareStatement(DBConstant.QUERY_NEW.GET_APPLICATION_PREVIOUS_REFERENCE_NO_BY_REFERENCE_NO);
+        pstm.setString(1, referenceNumber);
+        rst = pstm.executeQuery();
+        if (rst.next()) {
+            String previousRefNo = rst.getString(DBConstant.APPLICATION_COL.PREVIOUS_REFERENCE_NO);
+            if (previousRefNo == null || previousRefNo.isEmpty()) {
+                applicationStatus = "N";
+            } else {
+                applicationStatus = "R";
+            }
+        }
+        rst.close();
+        pstm.close();
+    } catch (Exception e) {
+        LOGGER.error("An error occurred " + e.getMessage());
+    } finally {
+        DatabaseManager.close(rst);
+        DatabaseManager.close(pstm);
+        DatabaseManager.close(con);    // ← closes new connection (if closed at all before pool exhausted)
+    }
+    return applicationStatus;
+}</pre>
+
+<div class="label-new">&#10003; Change To — reuse the caller's connection, do NOT open a new one</div>
+<pre>private String getApplicationPreviousReferenceNoByReferenceNo(String referenceNumber, Connection conn) {
+    PreparedStatement pstm = null;
+    ResultSet rst = null;
+    // ← Connection parameter removed; use caller's conn instead
+
+    String applicationStatus = "";
+    try {
+        pstm = conn.prepareStatement(DBConstant.QUERY_NEW.GET_APPLICATION_PREVIOUS_REFERENCE_NO_BY_REFERENCE_NO);
+        pstm.setString(1, referenceNumber);
+        rst = pstm.executeQuery();
+        if (rst.next()) {
+            String previousRefNo = rst.getString(DBConstant.APPLICATION_COL.PREVIOUS_REFERENCE_NO);
+            if (previousRefNo == null || previousRefNo.isEmpty()) {
+                applicationStatus = "N";
+            } else {
+                applicationStatus = "R";
+            }
+        }
+        rst.close();
+        pstm.close();
+    } catch (Exception e) {
+        LOGGER.error("An error occurred " + e.getMessage());
+    } finally {
+        DatabaseManager.close(rst);
+        DatabaseManager.close(pstm);
+        // ← DO NOT close conn here; the caller (fetchApplicationVerificationList) owns it
+    }
+    return applicationStatus;
+}</pre>
+
+<hr>
+
+<!-- ===================== FIX 3 ===================== -->
+<h2 id="fix3">5. Fix 3 — Connection Closed Twice <span class="badge-medium">MEDIUM</span></h2>
+
+<p class="filepath">SLPDeptApplication/src/main/java/lk/icta/police/business/CertificateIssuanceBusiness.java</p>
+
+<p>
+  In <code>updateApplicationCertificatePrintedStatus()</code>, when <code>isSuccess</code> is <code>true</code>,
+  the method calls <code>DatabaseManager.close(con)</code> at line 870 <em>inside the try body</em>,
+  and then the <code>finally</code> block at line 885 calls it a <em>second time</em>.
+  Closing a pooled connection twice can corrupt the pool's internal connection tracking,
+  potentially causing the pool to hand out the same physical connection to two threads simultaneously.
+</p>
+
+<h3>Existing Code (lines 853–886)</h3>
+<div class="label-old">&#10007; Current Code — double close when isSuccess = true</div>
+<pre>            if (isSuccess) {
+                con.commit();
+                DatabaseManager.close(con);    // ← FIRST CLOSE (inside try body)
+            } else {
+                con.rollback();
+            }
+
+        } catch (BusinessException e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } finally {
+            DatabaseManager.close(con);        // ← SECOND CLOSE (always executes, closes again!)
+        }</pre>
+
+<h3>Change To</h3>
+<div class="label-new">&#10003; Fixed Code — remove close from try body, keep only finally</div>
+<pre>            if (isSuccess) {
+                con.commit();
+                // ← REMOVE DatabaseManager.close(con) from here
+            } else {
+                con.rollback();
+            }
+
+        } catch (BusinessException e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+        } finally {
+            DatabaseManager.close(con);        // ← single close, always runs correctly
+        }</pre>
+
+<hr>
+
+<!-- ===================== FILE SUMMARY TABLE ===================== -->
+<h2 id="filetable">6. File Change Summary</h2>
+<table>
+  <tr>
+    <th>#</th>
+    <th>File Path</th>
+    <th>Line(s)</th>
+    <th>What to Change</th>
+    <th>Severity</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td><code>SLPCommonFramework/src/main/java/<br>lk/icta/police/framework/database/<br>DatabaseManager.java</code></td>
+    <td>59–61</td>
+    <td>Delete the entire second <code>static { DatabaseManager.init(); }</code> block</td>
+    <td><span class="badge-medium">MEDIUM</span></td>
+  </tr>
+  <tr>
+    <td>2a</td>
+    <td><code>SLPCommonFramework/src/main/java/<br>lk/icta/police/framework/dao/<br>DailyTransactionReportDAO.java</code></td>
+    <td>70</td>
+    <td>Change <code>getConstructedApplicationFromResultSet(rst)</code> to <code>getConstructedApplicationFromResultSet(rst, conn)</code></td>
+    <td><span class="badge-critical">CRITICAL</span></td>
+  </tr>
+  <tr>
+    <td>2b</td>
+    <td><code>SLPCommonFramework/src/main/java/<br>lk/icta/police/framework/dao/<br>DailyTransactionReportDAO.java</code></td>
+    <td>86</td>
+    <td>Change method signature: <code>getConstructedApplicationFromResultSet(ResultSet rst)</code> → <code>getConstructedApplicationFromResultSet(ResultSet rst, Connection conn)</code></td>
+    <td><span class="badge-critical">CRITICAL</span></td>
+  </tr>
+  <tr>
+    <td>2c</td>
+    <td><code>SLPCommonFramework/src/main/java/<br>lk/icta/police/framework/dao/<br>DailyTransactionReportDAO.java</code></td>
+    <td>101, 107–136</td>
+    <td>Change <code>getApplicationPreviousReferenceNoByReferenceNo(referenceNo)</code> call and method to accept and reuse <code>Connection conn</code> — remove <code>getPOLDBConnection()</code> and <code>DatabaseManager.close(con)</code> from inside this method</td>
+    <td><span class="badge-critical">CRITICAL</span></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><code>SLPDeptApplication/src/main/java/<br>lk/icta/police/business/<br>CertificateIssuanceBusiness.java</code></td>
+    <td>870</td>
+    <td>Remove <code>DatabaseManager.close(con);</code> from inside the <code>if (isSuccess)</code> block in the try body — the <code>finally</code> block already closes it</td>
+    <td><span class="badge-medium">MEDIUM</span></td>
+  </tr>
+</table>
+
+<hr>
+<p style="font-size:11px; color:#888; text-align:center; margin-top:20px;">
+  Generated by Claude Code &nbsp;|&nbsp; SLPDeptApplication MySQL Connection Leak Report &nbsp;|&nbsp; 2026-02-27
+</p>
+</body>
+</html>

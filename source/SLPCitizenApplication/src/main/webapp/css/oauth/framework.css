@@ -1,0 +1,239 @@
+
+/* CMC portal */
+.framework{
+                /*border:1px solid green;            */
+                text-align:center;
+}
+.framework p{
+                color:red;
+}
+.col-1 { 
+                width:auto;
+                clear:both;
+}
+
+body,#es-container{ min-width:288px; } 
+
+
+/*.sub-col-1, .sub-col-2{ border:1px solid #0CC;}*/
+.sub-col-1{ float:left; width:25%; margin-right:3%;}
+.sub-col-2{float:left; width:73.2%;}
+
+/* ----------------------------------------
+Lager than 980
+------------------------------------------- */
+@media screen and (min-width: 981px) {
+                
+                /* col-1 */
+                .col-1 { 
+                                width:auto;
+                /*           overflow:hidden; */
+                }
+                /* col-2 */
+                .col-2 { 
+                                float:left;
+                                width:70%;
+                                overflow:hidden;
+                }
+                /* col-3 */
+                .col-3 {
+                                float:left;
+                                width:30%;
+                                overflow:hidden;
+                }
+                /* col-4 */
+                .col-4 {
+                                float:left;
+                                width:17.50%;
+                                overflow:hidden;
+                }
+                .col-5 {
+                                float:left;
+                                width:50%;
+                                overflow:hidden;
+                }
+                .col-7 {
+                                float:left;
+                                width:25%;
+                                overflow:hidden;
+                }
+                 .col-8 {
+                                float:left;
+                                width:15%;
+                                overflow:hidden;
+                }
+                .col-9 {
+                                float:left;
+                                width:12%;
+                                overflow:hidden;
+                }
+}
+
+/* ----------------------------------------
+smaller than 980
+------------------------------------------- */
+@media screen and (min-width: 769px) and (max-width: 980px) {
+                
+                /* col-1 */
+                .col-1 { 
+                                width:auto;
+                /*           overflow:hidden; */
+                }
+                /* col-2 */
+                .col-2 { 
+                                float:left;
+                                width:70%;
+                                overflow:hidden;
+                }
+                /* col-3 */
+                .col-3 {
+                                float:left;
+                                width:30%;
+                                overflow:hidden;
+                }
+                /* col-4 */
+                .col-4 {
+                                float:left;
+                                width:17.50%;
+                                overflow:hidden;
+                }
+                /* col-5 */
+                .col-5 {
+                                float:left;
+                                width:50%;
+                                overflow:hidden;
+                }
+                /* col-6 */
+                .col-6 {
+                                float:left;
+                                width:82.3%;
+                                overflow:hidden;
+                }
+                .col-7 {
+                                float:left;
+                                width:25%;
+                                overflow:hidden;
+                }
+                .col-8 {
+                                float:left;
+                                width:15%;
+                                overflow:hidden;
+                }
+                .col-9 {
+                                float:left;
+                                width:12%;
+                                overflow:hidden;
+                }
+                /* embedded videos */
+                .video embed,
+                .video object,
+                .video iframe {
+                                width:100%;
+                                height:100% !important;
+                
+                }
+}
+@media screen and (min-width: 769px) and (max-width: 979px) {
+                .shadow{
+                                left:68.5%;
+                }
+}
+/* ----------------------------------------
+smaller than 768
+------------------------------------------- */
+@media screen and (max-width: 768px) {
+                /* col-1 */
+                .col-1 { 
+                                width:auto;
+                /*           overflow:hidden; */
+                }
+                /* col-2 */
+                .col-2 { 
+                                float:left;
+                                width:70%;
+                                overflow:hidden;
+                }
+                /* col-3 */
+                .col-3 {
+                                float:left;
+                                width:30%;
+                                overflow:hidden;
+                }
+                /* col-4 */
+                .col-4 {
+                                float:left;
+                                width:17.50%;
+                                overflow:hidden;
+                }
+                /* col-5 */
+                .col-5 {
+                                float:left;
+                                width:50%;
+                                overflow:hidden;
+                }
+                /* col-6 */
+                .col-6 {
+                                float:left;
+                                width:82.3%;
+                                overflow:hidden;
+                }
+                .col-7 {
+                                float:left;
+                                width:25%;
+                                overflow:hidden;
+                }
+                .col-8 {
+                                float:left;
+                                width:15%;
+                                overflow:hidden;
+                }
+                .col-9 {
+                                float:left;
+                                width:12%;
+                                overflow:hidden;
+                }
+                .nserp .col-2, .nserp .col-3, .nserp .col-4, .nserp .col-5, .nserp .col-6 { width: 100%; }
+                /* embedded videos */
+                .video embed,
+                .video object,
+                .video iframe {
+                                width:100%;
+                                height:100% !important; 
+                                float: left !important; 
+                
+                }
+                .shadow{
+                                left:63%;
+                }
+}
+@media screen and (max-width: 767px) {
+                /*#menu-wrapper {display:none;}*/
+}
+/* ----------------------------------------
+smaller than 650
+---------------------------------------- */
+@media screen and (max-width: 649px) {
+
+/* General */
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6 ,.col-7 , .col-8, .col-9{ 
+                width:auto; 
+                margin:0; 
+                float:none;
+                clear:both;
+} 
+.shadow{display:none;}
+
+}
+
+/* ----------------------------------------
+smaller than 560
+---------------------------------------- */
+@media screen and (max-width: 480px) {
+
+                /* disable webkit text size adjust (for iPhone) */
+                html {
+                                -webkit-text-size-adjust: none;
+                }
+
+}
+

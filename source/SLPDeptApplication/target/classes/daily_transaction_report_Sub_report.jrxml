@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="daily_transaction_report_Sub_report" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="96f266e3-8fd3-4ffc-8b4d-4d2bab488536">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="applicationReferenceNo" class="java.lang.String"/>
+	<field name="applicationStatus" class="java.lang.String"/>
+	<field name="transactionReferenceNo" class="java.lang.String"/>
+	<field name="paymentDate" class="java.util.Date"/>
+	<field name="totalFee" class="java.math.BigDecimal"/>
+	<field name="convenienceFee" class="java.math.BigDecimal"/>
+	<field name="paymentStatus" class="java.lang.String"/>
+	<field name="applicationType" class="java.lang.String"/>
+	<variable name="subTotalFee" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalFee}]]></variableExpression>
+	</variable>
+	<variable name="subTotConvenienceFee" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{convenienceFee}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="420" y="1" width="60" height="40" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Convenience Fee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="480" y="1" width="75" height="39" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="190" y="1" width="80" height="40" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trans.Ref No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="50" y="1" width="80" height="39" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="130" y="1" width="60" height="39" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reference No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="270" y="1" width="80" height="39" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="350" y="1" width="70" height="39" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f1a0ab0-2696-4ebd-9400-4bbd727f7d61" mode="Opaque" x="0" y="1" width="50" height="40" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Application Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="3ba0be77-5385-4405-bb00-f4f83604c547" x="420" y="0" width="60" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{convenienceFee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ea7e649f-2d47-4996-91f2-af60797b546d" x="0" y="0" width="50" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicationStatus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ea7e649f-2d47-4996-91f2-af60797b546e" x="130" y="0" width="60" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicationReferenceNo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="54f05f03-0628-49c4-b7d5-e3392c9abc9f" x="190" y="0" width="80" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transactionReferenceNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="02902ef2-b1b5-42e2-883d-48dbe6d34dd8" x="50" y="0" width="80" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paymentDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3a2ddd16-0dd7-4544-839e-d4e088954507" mode="Transparent" x="480" y="0" width="75" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paymentStatus}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d3eb5632-a7d8-4a09-a0a3-19905d2e190c" x="270" y="0" width="80" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicationType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0f0aea26-f28e-4ad7-9c97-67bca7cc617b" x="350" y="0" width="70" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalFee}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="e87ea9c3-0dcd-461e-bf73-38edd0f88d26" x="330" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" isUnderline="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{subTotalFee}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="df006675-6307-46fe-bfff-0b50f0dd20e4" x="400" y="0" width="60" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true" isUnderline="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{subTotConvenienceFee}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a5808e47-ccb4-47b7-b477-f560410de1b7" x="250" y="0" width="80" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Total(Rs.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c6264f1-d947-4044-97c2-dc6c42300c96" x="0" y="0" width="250" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8bae597c-2e33-4a39-a6fb-b3966ec28612" x="460" y="0" width="95" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

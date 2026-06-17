@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.custom.i18n.resources" value="global,police" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+	<constant name="struts.devMode" value="false"/>
+	<constant name="struts.multipart.maxSize" value="250000" />
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	
+	
+	<package name="default" extends="struts-default,json-default" namespace="/">
+		<interceptors>	
+			<interceptor name="loginI"	class="lk.icta.police.web.oauth.util.AuthenticationInterceptor" />
+			<interceptor name="xssInterceptor" class="lk.icta.police.web.util.XssInterceptor" />
+			<!-- stack to be used for internationalisation functionality -->
+			<interceptor-stack name="customI18nStack">
+			   <interceptor-ref name="i18n">
+			      <param name="parameterName">lang</param>
+			   </interceptor-ref>
+			   <interceptor-ref name="basicStack"/>
+			</interceptor-stack>
+		
+		    <interceptor-stack name="myStack">
+		    	<interceptor-ref name="loginI"/>
+		    	<interceptor-ref name="xssInterceptor"/>
+		    	<interceptor-ref name="customI18nStack" />		    	
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>					
+		</interceptors>
+
+		<default-interceptor-ref name="myStack" />
+		
+		<global-results>
+			<result name="localeChange">/WEB-INF/jsp/view/home.jsp</result>
+       	 	<result name="login">/WEB-INF/jsp/view/login.jsp</result>       	 	
+			<result name="invalid-session">/WEB-INF/jsp/view/home.jsp</result>
+			<result name="unauthorized">/WEB-INF/jsp/view/home.jsp</result>
+			<result name="Exception">/WEB-INF/jsp/view/errorinfo.jsp</result>
+		</global-results>
+         
+        <action name="sessionInvalidate" class="lk.icta.police.web.action.SessionInvalidateAction" method="sessionInvalidated">
+			<result>/WEB-INF/jsp/view/home.jsp</result>
+		</action>
+				
+		<action name="unauthorized" class="lk.icta.police.web.action.SessionInvalidateAction" method="unauthorized">
+			<result>/WEB-INF/jsp/view/home.jsp</result>
+		</action>		
+	     
+      	<action name="checkAuthentication" class="lk.icta.police.web.action.ApplicationAction" method="checkAuthentication">
+			<result type="json" />   
+     	</action>
+	     
+        <action name="home" class="lk.icta.police.web.action.HomeAction">
+			<result>/WEB-INF/jsp/view/home.jsp</result>
+		</action>
+		
+		<action name="application" class="lk.icta.police.web.action.ApplicationAction">
+			<result>/WEB-INF/jsp/view/application.jsp</result>
+		</action>
+		
+		<action name="loadPreviousApplication" class="lk.icta.police.web.action.ApplicationAction" method="loadPreviousApplication">
+			<result name="success">/WEB-INF/jsp/view/application.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/application.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/application.jsp</result>
+		</action>
+		
+		<action name="verifyApplication" class="lk.icta.police.web.action.ApplicationAction" method="verifyApplication">
+			<result name="success">/WEB-INF/jsp/view/application.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/application.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/application.jsp</result>
+		</action>
+		
+		<action name="saveApplication" class="lk.icta.police.web.action.ApplicationAction" method="saveApplication">
+			<result name="success">/WEB-INF/jsp/view/paymentconfirmation.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/application.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/application.jsp</result>
+		</action>
+		
+		<action name="viewApplication" class="lk.icta.police.web.action.ApplicationAction" method="viewApplication">
+			<result name="success">/WEB-INF/jsp/view/viewApplication.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/viewApplication.jsp</result>
+			<result>/WEB-INF/jsp/view/viewApplication.jsp</result>
+		</action>
+		
+		<action name="getReturnPaymentConfirmation" class="lk.icta.police.web.action.ApplicationAction" method="retrieveReturnPaymentConfirmation">
+			<result name="success">/WEB-INF/jsp/view/paymentconfirmationreceipt.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/home.jsp</result>
+		</action>
+		
+		<action name="uploadFile" class="lk.icta.police.web.action.ApplicationAction" method="uploadFile">
+			 <result name="success" type="json" />
+			 <result name="input" type="json" />
+		</action>
+		
+		<action name="loadCommissionersByCountry" class="lk.icta.police.web.action.ApplicationAction" method="loadCommisionerVOList">
+			 <result type="json" />
+		</action>
+		
+		<action name="loadCommissionerById" class="lk.icta.police.web.action.ApplicationAction" method="loadCommissionVO">
+			 <result type="json" />
+		</action>
+		
+   		<!-- REQUEST FOR UPDATE - START -->
+   		<action name="displayRequestForUpdateForm" class="lk.icta.police.web.action.RequestForUpdatesAction" method="displayRequestForUpdateForm">
+   			<result>/WEB-INF/jsp/view/requestForUpdate.jsp</result>
+   		</action>
+   		
+		
+		<action name="loadRequestForUpdate" class="lk.icta.police.web.action.RequestForUpdatesAction" method="loadRequestForUpdate">
+			<result name="success">/WEB-INF/jsp/view/requestForUpdate.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/requestForUpdate.jsp</result>
+			<result>/WEB-INF/jsp/view/requestForUpdate.jsp</result>
+		</action>
+		
+		<action name="saveRequestForUpdate" class="lk.icta.police.web.action.RequestForUpdatesAction" method="saveRequestForUpdate">
+			<result name="success">/WEB-INF/jsp/view/requestForUpdate.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/requestForUpdate.jsp</result>
+			<result>/WEB-INF/jsp/view/requestForUpdate.jsp</result>
+		</action>
+		<!-- REQUEST FOR UPDATE - END -->
+		
+		<!-- AUTH START -->
+		
+		<action name="tempredirectpage">
+			<result>/WEB-INF/jsp/view/tempRedirectPage.jsp</result>
+		</action>	
+
+		<action name="updateLoginFailure" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="updateLoginFailure">
+				<result type="json" />   
+	    </action>
+		
+		<action name="viewOAuthLogin" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="viewOAuthLogin">
+			<result name="success">/WEB-INF/jsp/view/viewOAuthLogin.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/viewOAuthLogin.jsp</result>
+		</action>
+		
+		<action name="setOAuthProvider" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="setOAuthProvider">
+			<result type="json">
+				<param name="root">oauthSelectResult</param>
+			</result>
+		</action>
+		
+		<action name="checkLoggedInStatus" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="checkLoggedInStatus">
+			<result name="success">/WEB-INF/jsp/view/jsonResult.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/jsonResult.jsp</result>
+		</action>
+		
+		<action name="redirectOAuth" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="redirectOAuth">
+			<result name="success">/WEB-INF/jsp/view/viewOAuthResult.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/viewOAuthResult.jsp</result>
+		</action>
+				
+		<action name="indexOauth" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="indexOauth">			
+			<result type="redirectAction" name="APPLICATION">application</result> 			
+			<result type="redirectAction" name="CLARIFICATION">displayRequestForUpdateForm</result>
+			<result name="error">/WEB-INF/jsp/view/home.jsp</result>
+		</action>
+		
+		<action name="finish" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="finish">
+			<result name="success">/WEB-INF/jsp/view/home.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/home.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/home.jsp</result>
+		</action>    
+		
+		<action name="logoutOauth" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="logout">
+			<result>/WEB-INF/jsp/view/home.jsp</result>
+		</action>
+			
+		<action name="redirectOAuthLogout" class="lk.icta.police.web.oauth.action.SampleServiceAction" method="redirectOAuthLogout">
+			<result name="success">/WEB-INF/jsp/view/redirectOAuthLogout.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/redirectOAuthLogout.jsp</result>
+		</action>
+		
+		<!-- AUTH END -->
+		
+		<!-- Application Status Check - START -->
+		<action name="checkApplicationStatus" class="lk.icta.police.web.action.ApplicationStatusCheckAction" method="checkApplicationStatus">
+			<result name="success">/WEB-INF/jsp/view/applicationStatusCheck.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/applicationStatusCheck.jsp</result>
+			<result>/WEB-INF/jsp/view/applicationStatusCheck.jsp</result>
+		</action>
+		<!-- Application Status Check - START -->
+		
+		<!-- Clearance Certificate Verification - START -->
+		<action name="clearanceCertificateVerification" class="lk.icta.police.web.action.ClearanceCertificateVerificationAction" method="clearanceCertificateVerification">
+			<result name="success">/WEB-INF/jsp/view/clearanceCertificateVerification.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/clearanceCertificateVerification.jsp</result>
+			<result>/WEB-INF/jsp/view/clearanceCertificateVerification.jsp</result>
+		</action>
+		<!-- Clearance Certificate Verification - START -->
+		
+		<action name="validateDateRange" class="lk.icta.police.web.action.ApplicationAction" method="validateDateRange">
+        	 <result type="json">
+			 	<param name="excludeNullProperties">true</param>
+			 </result>    
+         </action>
+		
+    </package>
+    
+</struts>

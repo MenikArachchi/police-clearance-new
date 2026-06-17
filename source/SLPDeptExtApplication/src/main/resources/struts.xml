@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.custom.i18n.resources" value="global" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+	<constant name="struts.devMode" value="false"/>
+	<constant name="struts.multipart.maxSize" value="250000" />
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	
+	
+	<package name="default" extends="struts-default,json-default" namespace="/">
+		<interceptors>	
+			<!-- login intercepter -->		
+			<interceptor name="loginIntercepter" class="lk.icta.police.external.action.LoginInterceptor" /> 
+			
+			<!-- stack to be used for internationalisation functionality -->
+			<interceptor-stack name="customI18nStack">
+			   <interceptor-ref name="i18n">
+			      <param name="parameterName">lang</param>
+			   </interceptor-ref>
+			   <interceptor-ref name="basicStack"/>
+			</interceptor-stack>
+		
+		    <interceptor-stack name="myStack">
+				<interceptor-ref name="loginIntercepter" /> 
+		    	<interceptor-ref name="customI18nStack" />		    	
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>					
+		</interceptors>
+
+		<default-interceptor-ref name="myStack" />
+	
+		<!-- Login and Authorization - START -->
+		<global-results>
+			<result name="invalid-session" type="redirectAction">sessionInvalidate</result>
+			<result name="unauthorized" type="redirectAction">unauthorized</result>
+		</global-results>
+		
+		<action name="sessionInvalidate"	class="lk.icta.police.external.action.SessionInvalidateAction" method="sessionInvalidated">
+			<result>/WEB-INF/jsp/view/login.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/login.jsp</result>
+			<result name="success">/WEB-INF/jsp/view/login.jsp</result>
+		</action>
+		
+		<action name="unauthorized"
+			class="lk.icta.police.external.action.SessionInvalidateAction" method="unauthorized">
+			<result>/WEB-INF/jsp/view/home.jsp</result> 	
+			<result name="error">/WEB-INF/jsp/view/login.jsp</result>
+			<result name="success">/WEB-INF/jsp/view/home.jsp</result>
+		</action>
+
+		<action name="home" class="lk.icta.police.external.action.HomeAction">
+		 	<result>/WEB-INF/jsp/view/home.jsp</result> 
+		 	<result name="error">/WEB-INF/jsp/view/home.jsp</result>
+			<result name="success">/WEB-INF/jsp/view/home.jsp</result>		      
+        </action>
+        
+        <action name="login">
+			<result name="login">/WEB-INF/jsp/view/login.jsp</result>
+			<result>/WEB-INF/jsp/view/login.jsp</result>
+		</action>
+		
+		<action name="authorizationAction" class="lk.icta.police.external.action.AuthorizationAction">
+			<result name="input">/WEB-INF/jsp/view/login.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/login.jsp</result>
+			<result name="success" type="redirectAction">home</result>
+		</action>
+		
+		<action name="logout" class="lk.icta.police.external.action.AuthorizationAction" method="doLogout">
+			<result name="success">/WEB-INF/jsp/view/login.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/login.jsp</result>
+			<result>/WEB-INF/jsp/view/login.jsp</result>
+		</action>
+		<!-- Login and Authorization - END -->
+      
+      <!-- Forgot Password - START -->
+		<action name="forgotPassword">
+			<result>/WEB-INF/jsp/view/forgotPwd.jsp</result>
+		</action>
+		
+         <action name="resetPassword" class="lk.icta.police.external.action.ResetPasswordAction">
+			<result name="input">/WEB-INF/jsp/view/forgotPwd.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/forgotPwd.jsp</result>
+			<result>/WEB-INF/jsp/view/forgotPwd.jsp</result>
+		</action>
+		<!-- Forgot Password - END -->
+		
+		<!-- Change Password - START -->
+		<action name="changePassword">
+			<result>/WEB-INF/jsp/view/changePassword.jsp</result>
+		</action>
+		
+		<action name="processChangePassword" class="lk.icta.police.external.action.ChangePasswordAction">
+			<result name="input">/WEB-INF/jsp/view/changePassword.jsp</result>
+			<result name="error">/WEB-INF/jsp/view/changePassword.jsp</result>
+			<result>/WEB-INF/jsp/view/changePassword.jsp</result>
+		</action>
+		<!-- Change Password - END -->
+		
+       	
+       	
+       <!-- Application review - START -->
+       	<action name="viewReviewApplication" class="lk.icta.police.external.action.ReviewApplicationAction" method="viewReviewApplication">
+			<result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+		</action>
+		
+		<action name="searchReviewApplication" class="lk.icta.police.external.action.ReviewApplicationAction" method="searchReviewApplication">
+			<result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+		</action>
+		
+		<action name="updateClearenceStatus" class="lk.icta.police.external.action.ReviewApplicationAction" method="updateClearenceStatus">
+			<result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+		</action>
+		
+		 <action name="updateAdverseClearenceStatus" class="lk.icta.police.external.action.ReviewApplicationAction" method="updateAdverseClearenceStatus">
+        	<result>/WEB-INF/jsp/view/reviewApplication.jsp</result>    
+         </action>
+		
+		 <action name="loadAddressListClearence" class="lk.icta.police.external.action.ReviewApplicationAction" method="loadAddressListClearence">
+        	 <result type="json" />      
+         </action>
+         
+         <action name="loadEditAddress" class="lk.icta.police.external.action.ReviewApplicationAction" method="loadEditAddress">
+        	 <result type="json" />      
+         </action>
+         
+         <action name="updateAddressPolice" class="lk.icta.police.external.action.ReviewApplicationAction" method="updateAddressPolice">
+        	 <result type="json" />      
+         </action>
+         
+         <action name="updateAddressEditPolice" class="lk.icta.police.external.action.ReviewApplicationAction" method="updateAddressEditPolice">
+        	 <result type="json" />      
+         </action>
+         
+         <action name="loadEmailContentPhq" class="lk.icta.police.external.action.ReviewApplicationAction" method="loadEmailContentPhq">
+        	 <result type="json" />      
+         </action>
+         
+         <action name="updateAddressPhq" class="lk.icta.police.external.action.ReviewApplicationAction" method="updateAddressPhq">
+        	 <result type="json" />      
+         </action>
+         
+         
+         <action name="updateAddressEditPhq" class="lk.icta.police.external.action.ReviewApplicationAction" method="updateAddressEditPhq">
+        	 <result type="json" />      
+         </action>
+         
+         <action name="checkAndLockCooRecord" class="lk.icta.police.external.action.ReviewApplicationAction" method="checkAndLockCooRecord">
+        	 <result type="json">
+        	 	<param name="excludeNullProperties">true</param>
+        	 </result>      
+         </action>
+         
+         <action name="checkAndRemoveLock" class="lk.icta.police.external.action.ReviewApplicationAction" method="checkAndRemoveLock">
+        	 <result type="json">
+        	 	<param name="excludeNullProperties">true</param>
+        	 </result>   
+         </action>
+         
+         
+         <action name="checkAndLockAddressRecord" class="lk.icta.police.external.action.ReviewApplicationAction" method="checkAndLockAddressRecord">
+        	  <result type="json">
+        	 	<param name="excludeNullProperties">true</param>
+        	 </result>     
+         </action>
+         
+         <action name="checkAndRemoveAddressLock" class="lk.icta.police.external.action.ReviewApplicationAction" method="checkAndRemoveAddressLock">
+        	  <result type="json">
+        	 	<param name="excludeNullProperties">true</param>
+        	 </result>      
+         </action>
+         
+         <action name="updateAddress" class="lk.icta.police.external.action.ReviewApplicationAction" method="updateAddress">
+			<result>/WEB-INF/jsp/view/reviewApplication.jsp</result>
+		</action>
+       	<!-- Application review - END -->
+       	
+       	
+        <!-- Update police Messages - START -->
+       	<action name="updatePoliceMessage" class="lk.icta.police.external.action.UpdatePoliceMessageAction" method="updatePoliceMessage">
+			<result>/WEB-INF/jsp/view/updatePoliceMessage.jsp</result>
+		</action>
+		
+		<action name="updatePoliceMessageRow" class="lk.icta.police.external.action.UpdatePoliceMessageAction" method="updatePoliceMessageRow">
+			<result name="success" type="redirectAction">
+				<param name="actionName">updatePoliceMessage</param>
+				<param name="applicationId">${applicationId}</param>
+			</result>
+			<result name="error">/WEB-INF/jsp/view/updatePoliceMessage.jsp</result>
+			<result name="input">/WEB-INF/jsp/view/updatePoliceMessage.jsp</result>
+		</action>
+       	<!-- Update police Messages - END -->
+       	
+    </package>
+
+</struts>

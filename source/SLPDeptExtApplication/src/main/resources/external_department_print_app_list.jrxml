@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="police_print_post_list" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="15" rightMargin="15" topMargin="20" bottomMargin="20" uuid="3837579c-f3eb-42db-a3a4-8e158a4b6094">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="15"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPORT_DATE" class="java.util.Date"/>
+	<parameter name="LOGO_IMAGE" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="REPORT_USER" class="java.lang.String"/>
+	<parameter name="REPORT_DEPT" class="java.lang.String"/>
+	<field name="referenceNo" class="java.lang.String"/>
+	<field name="nic" class="java.lang.String"/>
+	<field name="passport" class="java.lang.String"/>
+	<field name="applicantNameAsNic" class="java.lang.String"/>
+	<field name="certificatePostalAddress" class="java.lang.String"/>
+	<field name="dateSentForClarification" class="java.lang.String"/>
+	<field name="dateRecievedClarification" class="java.lang.String"/>
+	<field name="externalApprovalStatus" class="java.lang.String"/>
+	<field name="externalApprovedUser" class="java.lang.String"/>
+	<field name="givenComment" class="java.lang.String"/>
+	<title>
+		<band height="71">
+			<image scaleImage="FillFrame" isUsingCache="false">
+				<reportElement uuid="eb04510a-09a4-4c6b-9ab3-44afd9d4029b" x="23" y="0" width="53" height="68"/>
+				<imageExpression><![CDATA[$P{LOGO_IMAGE}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="82979bad-8a50-4d00-8ae0-1b4d56bca297" x="76" y="8" width="363" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[POLICE HEADQUARTERS, COLOMBO 1, SRI LANKA]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="4b684801-be84-48d8-9d70-f1b285a7cd13" x="0" y="68" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="82979bad-8a50-4d00-8ae0-1b4d56bca297" x="76" y="28" width="363" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Application Clearance Status List for External Departments]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4ce68418-3ecd-4881-b5dd-bd6767457a74" x="0" y="3" width="132" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Application Clearance List -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1dc0454-7c3a-41a6-a44e-71f5754ea275" x="404" y="3" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Generated Date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="4a37cc65-4d58-45e0-9b75-a37340a75ce0" x="474" y="3" width="81" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b1dc0454-7c3a-41a6-a44e-71f5754ea275" x="260" y="3" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Generated User:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="4a37cc65-4d58-45e0-9b75-a37340a75ce0" x="330" y="3" width="74" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_USER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement uuid="4a37cc65-4d58-45e0-9b75-a37340a75ce0" x="132" y="3" width="128" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_DEPT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="0" y="0" width="55" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reference No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="150" y="0" width="70" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="220" y="0" width="80" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="345" y="0" width="45" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Resp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="390" y="0" width="43" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clearance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="55" y="0" width="45" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIC No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="100" y="0" width="50" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Passport No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="300" y="0" width="45" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Rec.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="507" y="0" width="58" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cleared User]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2224ae7-e1ec-4012-83ab-ff9edd4a80f2" mode="Opaque" x="433" y="0" width="74" height="15" backcolor="#CCCCFF"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comment]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="0" y="0" width="55" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referenceNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="150" y="0" width="70" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicantNameAsNic}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="220" y="0" width="80" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificatePostalAddress}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="345" y="0" width="45" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateRecievedClarification}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="390" y="0" width="43" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{externalApprovalStatus}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="55" y="0" width="45" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nic}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="100" y="0" width="50" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{passport}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="300" y="0" width="45" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateSentForClarification}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="507" y="0" width="58" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{externalApprovedUser}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="703090bf-8f83-4b99-8a23-62d0c234e2cc" stretchType="RelativeToBandHeight" x="433" y="0" width="74" height="15"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{givenComment}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="15">
+			<textField>
+				<reportElement uuid="8baa148c-e0ee-4c88-8fea-6e9b9c5905d6" x="435" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="9c52118a-9d89-4188-aa36-58aa1d76176b" x="515" y="0" width="40" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

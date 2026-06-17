@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--<session-config>-->
+		<!--<session-timeout>30</session-timeout>-->
+	<!--</session-config>-->
+	<welcome-file-list>
+		<welcome-file>/jsp/login.jsp</welcome-file>
+	</welcome-file-list>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/COMMUSRDB_SLP</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	<servlet>
+		<servlet-name>JsonUserListLoader</servlet-name>
+		<servlet-class>lk.icta.commonuser.dept.web.servlet.JsonUserListLoader</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JsonUserListLoader</servlet-name>
+		<url-pattern>/jsonuserloader.data</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<servlet-class>lk.icta.commonuser.dept.web.servlet.CaptchaGeneratorServlet</servlet-class>
+		<init-param>
+			<description>passing height</description>
+			<param-name>height</param-name>
+			<param-value>20</param-value>
+		</init-param>
+		<init-param>
+			<description>passing height</description>
+			<param-name>width</param-name>
+			<param-value>58</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<url-pattern>/Captcha.jpg</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ContextLoaderServlet</servlet-name>
+		<servlet-class>lk.icta.commonuser.dept.web.servlet.ContextLoaderServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ContextLoaderServlet</servlet-name>
+		<url-pattern>/LoadAppContext.data</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>JsonLanguageLoader</servlet-name>
+		<servlet-class>lk.icta.commonuser.dept.web.servlet.JsonLanguageLoader</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JsonLanguageLoader</servlet-name>
+		<url-pattern>/jsonlangloader.data</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CommonAdminServlet</servlet-name>
+		<servlet-class>lk.icta.commonuser.dept.web.servlet.CommonAdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommonAdminServlet</servlet-name>
+		<url-pattern>/commonAdminServlet.data</url-pattern>
+	</servlet-mapping>
+	
+	<security-constraint>
+                 <web-resource-collection>
+                  <web-resource-name>restricted methods</web-resource-name>
+                  <url-pattern>/*</url-pattern>
+                  <http-method>PUT</http-method>
+                  <http-method>DELETE</http-method>
+                  <http-method>OPTIONS</http-method>
+                  <http-method>TRACE</http-method>
+                  <http-method>HEAD</http-method>
+                 </web-resource-collection>
+                 <auth-constraint />
+    </security-constraint>
+	
+</web-app>

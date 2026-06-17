@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 
+   <constant name="struts.devMode" value="true" />
+ 
+   <package name="default" namespace="/" extends="json-default">
+     
+      
+	    <action name="checkApplicationStatus" 
+	    	class="lk.icta.slprest.action.ApplicationStatusCheckAction" method="checkApplicationStatus">
+       	   	<result type="json" /> 
+	    </action>
+
+		<action name="clearanceCertificateVerification" 
+	    	class="lk.icta.slprest.action.ClearanceCertificateVerificationAction" method="clearanceCertificateVerification">
+       	   	<result type="json" /> 
+	    </action>
+    </package>
+</struts>

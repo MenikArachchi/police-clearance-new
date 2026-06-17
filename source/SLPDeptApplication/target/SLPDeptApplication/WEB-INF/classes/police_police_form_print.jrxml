@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="police_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d3925146-561a-4826-9e0f-98404c23e555">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\smarambage001\\Desktop\\POLICE\\Report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="POLICE_FORM_ITEM_SUB_REPORT" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="REPORT_DATE" class="java.util.Date"/>
+	<field name="policeArea" class="java.lang.String"/>
+	<field name="policeFormItemVOs" class="java.util.List"/>
+	<field name="referenceNo" class="java.lang.String"/>
+	<detail>
+		<band height="159" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6eb1ea23-a018-4d57-b37f-dac80eeddf56" x="102" y="3" width="333" height="19"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[POLICE CLEARANCE CERTIFICATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f6410801-80b3-4b53-a014-fac573510ff0" x="12" y="47" width="159" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Director Headquarters Administration]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0dcdcb9d-9c7f-449e-a838-d3b6c91fbdf4" x="12" y="62" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Police Headquarters]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af4a8312-31d0-46cf-ad20-e94b28a642ec" x="367" y="47" width="52" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Your Ref. No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="494c20f6-7c31-4aa7-a60a-6977e7f3eae9" x="12" y="106" width="535" height="25"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[This is to certify that the under mentioned person have been resident in my Police area and have not been involved in any criminal activities and not come to the adverse notice of the police during his/her stay in my Police area.]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="0c1473fa-cbb7-48cf-9a58-819db6f7dc22" x="419" y="80" width="128" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORT_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="494c20f6-7c31-4aa7-a60a-6977e7f3eae9" x="12" y="131" width="535" height="25"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Br-Ridhma." size="8" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[my; j.=fõ i|yka mqoa.,hd mÞ<sn|j udf.a fmd,sia jiu ;=, mosxÑj isák $ isá nj;a j.=fõ i|yka ld, iSudj ;=, fuu mqoa.,hd mqoa.,hd mÞ<sn|j udf.a fmd,sia ia:dkh ;=< mj;ajdf.k hk f;dr;=re fmd;a yd f,aLk wkqj wmrdO fpdaokd lsisjla fyda whym;a jd¾:d igyka ù fkdue;s nj iy;sl lrñ']]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0dcdcb9d-9c7f-449e-a838-d3b6c91fbdf4" x="12" y="76" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Colombo 01]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af4a8312-31d0-46cf-ad20-e94b28a642ec" x="367" y="66" width="180" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[My Ref. No. : .........................................................]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0c1473fa-cbb7-48cf-9a58-819db6f7dc22" x="419" y="48" width="128" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referenceNo}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="34">
+			<subreport>
+				<reportElement uuid="0482c841-ef1a-441b-9e7e-d45c15fd7e88" x="15" y="2" width="532" height="25"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{policeFormItemVOs})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{POLICE_FORM_ITEM_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="91">
+			<staticText>
+				<reportElement uuid="2b4b4ea1-0847-40b3-b9ff-ae6119b92b56" x="422" y="41" width="122" height="15"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HQI/OIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fb2cf184-cab3-45d2-b8ec-a6b401f4067d" x="422" y="56" width="122" height="15"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Police Station]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0c1473fa-cbb7-48cf-9a58-819db6f7dc22" x="422" y="71" width="122" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{policeArea}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

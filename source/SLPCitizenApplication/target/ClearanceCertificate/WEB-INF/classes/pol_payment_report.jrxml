@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coo_payment_report" pageWidth="595" pageHeight="842" columnWidth="551" leftMargin="22" rightMargin="22" topMargin="22" bottomMargin="22" uuid="f6f0d9ef-ae7b-4616-bc11-6576c8a49e2e">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TRANSACTION_REF_NO" class="java.lang.String"/>
+	<parameter name="PAYMENT_DATE" class="java.util.Date"/>
+	<parameter name="APPLICATION_REF_NO" class="java.lang.String"/>
+	<parameter name="APPLICATION_FEE" class="java.math.BigDecimal"/>
+	<parameter name="SERVICE_FEE" class="java.math.BigDecimal"/>
+	<parameter name="POSTAGE_FEE" class="java.math.BigDecimal"/>
+	<parameter name="CONVENIENE_FEE" class="java.math.BigDecimal"/>
+	<parameter name="TOTAL_FEE" class="java.math.BigDecimal"/>
+	<parameter name="LOGO_IMAGE" class="java.lang.Object" isForPrompting="false"/>
+	<title>
+		<band height="112" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6b6b4228-db3f-4e2e-b6b8-2672897b0b75" x="0" y="63" width="551" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Online Payment Confirmation Receipt]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="39cc6647-96e5-4518-abbb-862e11bcf522" x="0" y="0" width="551" height="63"/>
+				<imageExpression><![CDATA[$P{LOGO_IMAGE}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60">
+			<staticText>
+				<reportElement uuid="d3c89e4d-e09f-40e4-a15f-d4ed080ecf3c" x="17" y="0" width="154" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transaction Reference No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9e49d00e-108a-4f6c-b7d9-5b5b460d9a2c" x="17" y="20" width="154" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1209c74b-7653-453e-a5ed-ca1b94f9847d" x="17" y="40" width="154" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Application Reference No]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d9bcd7dd-326b-4f6e-9fd3-e199e36e89e5" x="171" y="0" width="222" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TRANSACTION_REF_NO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="2d2b640b-fc28-4dc9-bd31-b465c5c3d3aa" x="171" y="20" width="222" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PAYMENT_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="72384750-e15d-43f5-885a-767c50f108ff" x="171" y="40" width="222" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{APPLICATION_REF_NO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="286">
+			<staticText>
+				<reportElement uuid="98445bc4-e7bc-4966-ae36-a6e012eae88f" x="17" y="35" width="121" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Application Fee (Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="484ee08a-bd69-4717-b4ee-fbe0100f0b35" x="17" y="15" width="154" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Payment Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="20aa53cc-17c2-4e84-a57d-3cdbd7f1156d" x="17" y="55" width="121" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Postage (Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93e78603-18dd-4145-95d2-c7dd41becca3" x="17" y="75" width="121" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Convenience Fee (Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f8729715-d478-4536-93e0-353a029d7602" x="17" y="95" width="121" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Fee (Rs)]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="c8447dda-d16b-47ee-9aa4-e714552ded79" x="138" y="95" width="155" height="20"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Double"/>
+					<bottomPen lineWidth="0.5" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TOTAL_FEE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="82e1cacd-8bc7-489b-a646-0946fb98087b" x="138" y="75" width="155" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CONVENIENE_FEE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="e4e7f8d4-74b2-40d2-a124-f379624c2c83" x="138" y="55" width="155" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{POSTAGE_FEE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="b48608f5-3f3b-454f-8185-2427cd64ff06" x="138" y="35" width="155" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{APPLICATION_FEE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a0c528ac-6b90-4c51-8a7a-ae26570b135b" x="17" y="154" width="534" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Please take note of your application reference number for future reference.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0c528ac-6b90-4c51-8a7a-ae26570b135b" x="17" y="174" width="534" height="40"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Please kindly notice that the clearance report is issued by the Director Headquarters Administration, based on the background investigation reports of you.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0c528ac-6b90-4c51-8a7a-ae26570b135b" x="17" y="214" width="534" height="31"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Call +94 11 2439185 / +94 11 2439186 / +94 11 2122800 for any queries.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

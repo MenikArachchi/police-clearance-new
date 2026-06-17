@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clearance_report" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="989f1c86-72a3-4737-b647-0f2833a2e9e3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\smarambage001\\Desktop\\POLICE\\Report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CLEARANCE_REPORT_SUB_REPORT" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="fromDate" class="java.util.Date"/>
+	<parameter name="toDate" class="java.util.Date"/>
+	<field name="applicationVOs" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="bee0f500-0293-487c-ad29-36509de5b4b1" x="0" y="0" width="207" height="43"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clearance Report]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement uuid="d996a3f8-9e11-4475-8aac-3bdb124893e5" x="41" y="43" width="142" height="20"/>
+				<box leftPadding="2"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement uuid="a4be331a-9767-40c8-9d9c-09a5fda118e2" x="236" y="43" width="137" height="20"/>
+				<box leftPadding="2"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ea78c6ce-db21-4666-85c3-1797844ba6b8" x="0" y="43" width="41" height="20"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[From :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9fa59cfb-b1d6-40f6-92cc-35910b5bddc9" x="207" y="43" width="29" height="20"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[To :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="dd0d6787-dad4-4673-977e-c337a11ed431" x="0" y="0" width="555" height="125"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{applicationVOs})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{CLEARANCE_REPORT_SUB_REPORT}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

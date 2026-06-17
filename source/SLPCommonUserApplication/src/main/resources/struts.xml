@@ -1,0 +1,91 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.custom.i18n.resources" value="global"/>
+    <constant name="struts.devMode" value="false"/>    
+    <!--<package name="default" extends="struts-default,json-default" namespace="/">-->
+    <package name="default" extends="struts-default,json-default">
+
+        <interceptors>
+            <interceptor name="login" class="lk.icta.commonuser.dept.web.interceptor.LoginInterceptor"/>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="login"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myStack"/>
+
+        <global-results>
+            <result name="SESSION_EXPIRED" type="redirectAction">sessionInvalidate</result>
+        </global-results>
+
+        <action name="Login" class="lk.icta.commonuser.dept.web.action.UserLoginAction">
+            <result name="LOGINSUCCESS" type="redirectAction">CommUserMgmt</result>
+            <result name="LOGINFAIL">/jsp/login.jsp</result>
+        </action>
+        <action name="NewLogin" method="newLogin" class="lk.icta.commonuser.dept.web.action.UserLoginAction">
+            <result name="LOGIN">/jsp/login.jsp</result>
+        </action>
+        <action name="ForgotPwd" class="lk.icta.commonuser.dept.web.action.ForgotPasswordAction">
+            <result name="FORGOTPWD">/jsp/ForgotPwd.jsp</result>
+        </action>
+        <action name="ProcessForgotPwd" method="processNewPassword"
+                class="lk.icta.commonuser.dept.web.action.ForgotPasswordAction">
+            <result name="FORGOTPWDSUCESS">/jsp/ForgotPwdResult.jsp</result>
+            <result name="FORGOTPWDFAIL">/jsp/ForgotPwd.jsp</result>
+        </action>
+        <action name="CommUserMgmt" class="lk.icta.commonuser.dept.web.action.CommonUserAction">
+            <result name="LOAD">/jsp/CommUserMgmt.jsp</result>
+            <result name="FAILURE">/jsp/login.jsp</result>
+        </action>
+        <action name="ProcessCommUserMgmt" method="processUserMgmt"
+                class="lk.icta.commonuser.dept.web.action.CommonUserAction">
+            <result name="SUCCESS">/jsp/CommUserMgmtResult.jsp</result>
+            <result name="FAILURE">/jsp/CommUserMgmt.jsp</result>
+        </action>
+        <action name="FetchUser" method="fetchUser" class="lk.icta.commonuser.dept.web.action.CommonUserAction">
+            <result name="SUCCESS">/jsp/CommUserMgmt.jsp</result>
+            <result name="FAILURE">/jsp/CommUserMgmt.jsp</result>
+        </action>
+        <action name="PopulateServices" method="populateServiceList"
+                class="lk.icta.commonuser.dept.web.action.CommonUserAction">
+            <result name="SUCCESS">/jsp/ServiceDetails.jsp</result>
+            <result name="FAILURE">/jsp/ServiceDetails.jsp</result>
+        </action>
+        <action name="ChangePwd" class="lk.icta.commonuser.dept.web.action.ChangePasswordAction">
+            <result name="CHANGEPWD">/jsp/ChangePwd.jsp</result>
+        </action>
+        <action name="ProcessChangePwd" method="processChangePassword"
+                class="lk.icta.commonuser.dept.web.action.ChangePasswordAction">
+            <result name="CHANGEPWDSUCESS">/jsp/ChangePwdResult.jsp</result>
+            <result name="CHANGEPWDFAIL">/jsp/ChangePwd.jsp</result>
+        </action>
+        <action name="Logout" class="lk.icta.commonuser.dept.web.action.UserLogoutAction">
+            <result name="LOGOUTSUCCESS">/jsp/login.jsp</result>
+            <result name="LOGOUTFAIL">/jsp/login.jsp</result>
+        </action>
+        <action name="changeLocale" class="lk.icta.commonuser.dept.web.locale.action.LocaleAction">
+            <result name="LOGIN">/jsp/loginHeader.jsp</result>
+            <result name="PAGE">/jsp/header.jsp</result>
+        </action>
+        <action name="sessionInvalidate"
+                class="lk.icta.commonuser.dept.web.action.SessionInvalidateAction">
+            <result name="input">/jsp/login.jsp</result>
+            <result name="error">/jsp/login.jsp</result>
+            <result>/jsp/login.jsp</result>
+        </action>
+
+        <action name="checkUserByCurrentNICNumber" class="lk.icta.commonuser.dept.web.action.CommonUserAction"
+                method="checkUserByCurrentNICNumber">
+            <result type="json"/>
+        </action>
+        <action name="findAllUsersByPoliceStation" class="lk.icta.commonuser.dept.web.action.CommonUserAction"
+                method="findAllUsersByPoliceStation">
+            <result type="json"/>
+        </action>
+
+    </package>
+</struts>
