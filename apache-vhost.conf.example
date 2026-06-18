@@ -1,0 +1,35 @@
+# Apache virtual host config for Ubuntu production server
+# Place in /etc/apache2/sites-available/police-clearance.conf
+# then: sudo a2ensite police-clearance && sudo systemctl reload apache2
+#
+# Required modules:
+#   sudo a2enmod proxy proxy_http ssl headers rewrite
+
+<VirtualHost *:443>
+    ServerName eservicepoliceadmin.police.lk
+
+    SSLEngine on
+    SSLCertificateFile      /etc/ssl/certs/your-cert.pem
+    SSLCertificateKeyFile   /etc/ssl/private/your-key.pem
+    # SSLCertificateChainFile /etc/ssl/certs/your-chain.pem
+
+    # Proxy /admin-new/* → Next.js on port 3000
+    ProxyPreserveHost On
+    ProxyPass        /admin-new http://127.0.0.1:3000/admin-new
+    ProxyPassReverse /admin-new http://127.0.0.1:3000/admin-new
+
+    # Forward real IP / HTTPS info to Next.js
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-For   "%{REMOTE_ADDR}e"
+
+    # WebSocket support for Next.js HMR (not needed in production, but harmless)
+    RewriteEngine On
+    RewriteCond %{HTTP:Upgrade} websocket [NC]
+    RewriteCond %{HTTP:Connection} upgrade [NC]
+    RewriteRule ^/admin-new/(.*) ws://127.0.0.1:3000/admin-new/$1 [P,L]
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName eservicepoliceadmin.police.lk
+    Redirect permanent / https://eservicepoliceadmin.police.lk/
+</VirtualHost>
