@@ -3,8 +3,9 @@ import SiteFooter from '@/components/layout/SiteFooter';
 import { SessionProvider } from '@/components/layout/SessionProvider';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
+  const basePath = process.env.NEXT_BASE_PATH || '';
   return (
-    <SessionProvider>
+    <SessionProvider basePath={basePath}>
       <div id="es-container">
         <TopBanner />
         <div id="es-content" style={{ padding: '0 10px' }}>
