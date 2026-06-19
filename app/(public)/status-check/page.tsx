@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 interface StatusResult {
@@ -25,7 +26,7 @@ export default function PublicStatusCheckPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/status?ref=${encodeURIComponent(referenceNo.trim())}`);
+      const res = await fetch(`${BASE_PATH}/api/status?ref=${encodeURIComponent(referenceNo.trim())}`);
       const data = await res.json();
 
       if (data.success && data.data) {

@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 interface ReviewApp {
@@ -34,6 +36,7 @@ function fmtDateTime(d?: string) {
 }
 
 export default function ReviewApplicationPage() {
+  const router = useRouter();
   const { data: session } = useSession();
 
   const today = new Date().toISOString().split('T')[0];
@@ -63,7 +66,7 @@ export default function ReviewApplicationPage() {
       if (ppt)    params.set('ppt',    ppt);
       if (name)   params.set('name',   name);
 
-      const res  = await fetch(`/api/review-application?${params}`);
+      const res  = await fetch(`${BASE_PATH}/api/review-application?${params}`);
       const data = await res.json();
       if (data.success) setResults(data.data as ReviewApp[]);
       else setError(data.message ?? 'Search failed.');
@@ -86,7 +89,7 @@ export default function ReviewApplicationPage() {
       ? { phq_record_lock_status: 0, updated_user_id: null }
       : { phq_record_lock_status: 1, updated_user_id: session?.user?.id ?? null };
 
-    await fetch(`/api/applications/${app.application_id}`, {
+    await fetch(`${BASE_PATH}/api/applications/${app.application_id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -308,7 +311,7 @@ export default function ReviewApplicationPage() {
                                   className="btn btn-primary es-buttton"
                                   onClick={() => {
                                     if (isMine || !isLocked) {
-                                      window.location.href = `/dept/applications/${app.application_id}`;
+                                      router.push(`/dept/applications/${app.application_id}`);
                                     }
                                   }}
                                 />

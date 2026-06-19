@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 interface AddressRow {
@@ -186,7 +187,7 @@ export default function ApplyPage() {
         certificate_addresses: addressList,
       };
 
-      const res = await fetch('/api/applications', {
+      const res = await fetch(`${BASE_PATH}/api/applications`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

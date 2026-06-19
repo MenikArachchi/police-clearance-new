@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 interface VerifApp {
@@ -42,6 +45,7 @@ function rowBg(app: VerifApp): string | undefined {
 }
 
 export default function ApplicationVerificationPage() {
+  const router = useRouter();
   const { data: session } = useSession();
 
   const today = new Date().toISOString().split('T')[0];
@@ -77,7 +81,7 @@ export default function ApplicationVerificationPage() {
       if (passport) params.set('passport', passport);
       if (name)     params.set('name',     name);
 
-      const res  = await fetch(`/api/application-verification?${params}`);
+      const res  = await fetch(`${BASE_PATH}/api/application-verification?${params}`);
       const data = await res.json();
       if (data.success) {
         setResults(data.data as VerifApp[]);
@@ -104,7 +108,7 @@ export default function ApplicationVerificationPage() {
       ? { phq_record_lock_status: 0, updated_user_id: null }
       : { phq_record_lock_status: 1, updated_user_id: session?.user?.id ?? null };
 
-    await fetch(`/api/applications/${app.application_id}`, {
+    await fetch(`${BASE_PATH}/api/applications/${app.application_id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -116,7 +120,7 @@ export default function ApplicationVerificationPage() {
     const newStatus = pendingStatus[app.application_id] ?? app.application_review_status;
     setSaving((s) => ({ ...s, [app.application_id]: true }));
     try {
-      const res = await fetch(`/api/applications/${app.application_id}`, {
+      const res = await fetch(`${BASE_PATH}/api/applications/${app.application_id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ application_review_status: newStatus }),
@@ -337,10 +341,10 @@ export default function ApplicationVerificationPage() {
 
                               {/* Reference */}
                               <td className="text-center" style={{ verticalAlign: 'middle' }}>
-                                <a href={`/dept/applications/${app.application_id}`}
+                                <Link href={`/dept/applications/${app.application_id}`}
                                   style={{ cursor: 'pointer' }}>
                                   {app.reference_no}
-                                </a>
+                                </Link>
                               </td>
 
                               {/* NIC */}
@@ -404,7 +408,7 @@ export default function ApplicationVerificationPage() {
                                   className="btn btn-primary es-buttton"
                                   disabled={!isMine}
                                   onClick={() => {
-                                    if (isMine) window.location.href = `/dept/applications/${app.application_id}`;
+                                    if (isMine) router.push(`/dept/applications/${app.application_id}`);
                                   }}
                                 />
                               </td>

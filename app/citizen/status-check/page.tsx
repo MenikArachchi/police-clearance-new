@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 interface StatusResult {
@@ -26,7 +27,7 @@ export default function StatusCheckPage() {
     if (!refNo) return;
     setError(''); setResult(null); setLoading(true);
     try {
-      const res = await fetch(`/api/status?ref=${encodeURIComponent(refNo)}`);
+      const res = await fetch(`${BASE_PATH}/api/status?ref=${encodeURIComponent(refNo)}`);
       const data = await res.json();
       if (data.success) { setResult(data.data); setShowModal(true); }
       else { setError(data.message ?? 'Application not found.'); setShowModal(true); }

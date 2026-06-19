@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 export default function CitizenChangePasswordPage() {
@@ -19,7 +20,7 @@ export default function CitizenChangePasswordPage() {
     if (newPwd.length < 6) { setMsg('New password must be at least 6 characters.'); return; }
     setLoading(true); setMsg('');
     try {
-      const res = await fetch('/api/auth/change-password', {
+      const res = await fetch(`${BASE_PATH}/api/auth/change-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ oldPassword: oldPwd, newPassword: newPwd }),

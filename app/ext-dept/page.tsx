@@ -45,7 +45,7 @@ export default async function ExtDeptDashboard() {
         <div className="col-lg-5">
           <div className="well new_bullet">
             <ul>
-              <li><a href="/ext-dept/applications">Application Verification</a></li>
+              <li><Link href="/ext-dept/applications">Application Verification</Link></li>
             </ul>
           </div>
         </div>

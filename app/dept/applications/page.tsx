@@ -185,7 +185,7 @@ export default async function ApplicationsPage({
             <button type="submit" className="btn btn-primary es-buttton" style={{ marginRight: '8px' }}>
               Search
             </button>
-            <a href="/dept/applications" className="btn btn-default">Clear</a>
+            <Link href="/dept/applications" className="btn btn-default">Clear</Link>
           </div>
           <div style={{ clear: 'both' }}></div>
         </form>

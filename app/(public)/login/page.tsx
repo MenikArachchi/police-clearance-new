@@ -2,11 +2,13 @@
 
 import { useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 function LoginForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -35,7 +37,7 @@ function LoginForm() {
     }
 
     const callbackUrl = searchParams.get('callbackUrl') || '/dept';
-    window.location.href = callbackUrl;
+    router.push(callbackUrl);
   }
 
   return (
@@ -108,13 +110,13 @@ function LoginForm() {
               <div className="form-group">
                 <div className="col-sm-3"></div>
                 <div className="col-sm-6">
-                  <a
+                  <Link
                     href="/forgot-password"
                     className="btn btn-primary es-buttton"
                     style={{ float: 'right' }}
                   >
                     Forgot Password
-                  </a>
+                  </Link>
                 </div>
               </div>
 

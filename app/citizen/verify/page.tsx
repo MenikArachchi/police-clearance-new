@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 interface VerifyResult {
@@ -28,7 +29,7 @@ export default function VerifyCertificatePage() {
       if (nicNo) params.set('nic', nicNo);
       if (passportNo) params.set('passport', passportNo);
       params.set('serial', certNo);
-      const res = await fetch(`/api/certificates/verify?${params}`);
+      const res = await fetch(`${BASE_PATH}/api/certificates/verify?${params}`);
       const data = await res.json();
       if (data.success) { setResult(data.data); setShowModal(true); }
       else { setError(data.message ?? 'Certificate not found or invalid.'); setShowModal(true); }

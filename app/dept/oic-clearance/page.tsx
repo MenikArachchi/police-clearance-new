@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { BASE_PATH } from '@/lib/basepath';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 type AppRow = {
@@ -149,7 +151,7 @@ export default function OicClearancePage() {
         limit: String(params.limit),
         offset: String(params.offset),
       });
-      const res = await fetch(`/api/oic-clearance?${qs}`);
+      const res = await fetch(`${BASE_PATH}/api/oic-clearance?${qs}`);
       const json = await res.json();
       if (json.success) {
         setRows(json.data.rows);
@@ -202,7 +204,7 @@ export default function OicClearancePage() {
   };
 
   const handleLock = async (row: AppRow) => {
-    const res = await fetch(`/api/applications/${row.application_id}/lock`, { method: 'POST' });
+    const res = await fetch(`${BASE_PATH}/api/applications/${row.application_id}/lock`, { method: 'POST' });
     const json = await res.json();
     if (json.success) {
       await doFetch(search);
@@ -216,7 +218,7 @@ export default function OicClearancePage() {
   };
 
   const handleUnlock = async (appId: number) => {
-    await fetch(`/api/applications/${appId}/lock`, { method: 'DELETE' });
+    await fetch(`${BASE_PATH}/api/applications/${appId}/lock`, { method: 'DELETE' });
     await doFetch(search);
   };
 
@@ -251,7 +253,7 @@ export default function OicClearancePage() {
     setSaving(true);
     setSaveError('');
     try {
-      const res = await fetch(`/api/applications/${row.application_id}/oic-update`, {
+      const res = await fetch(`${BASE_PATH}/api/applications/${row.application_id}/oic-update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -276,7 +278,7 @@ export default function OicClearancePage() {
 
   const handleViewComments = async (appId: number) => {
     try {
-      const res = await fetch(`/api/applications/${appId}/comments`);
+      const res = await fetch(`${BASE_PATH}/api/applications/${appId}/comments`);
       const json = await res.json();
       if (json.success) {
         setCommentsModal({ open: true, app: json.data.app, comments: json.data.comments });
@@ -461,7 +463,7 @@ export default function OicClearancePage() {
                         </td>
                         {/* Reference */}
                         <td className="text-center" style={{ verticalAlign: 'middle' }}>
-                          <a href={`/dept/applications/${row.application_id}`}>{row.reference_no}</a>
+                          <Link href={`/dept/applications/${row.application_id}`}>{row.reference_no}</Link>
                         </td>
                         {/* NIC */}
                         <td className="text-center" style={{ verticalAlign: 'middle' }}>{row.nic ?? '-'}</td>

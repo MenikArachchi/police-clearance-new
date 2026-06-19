@@ -3,6 +3,7 @@ import { authOptions } from '@/lib/auth';
 import { appPool as pool } from '@/lib/db';
 import type { RowDataPacket } from 'mysql2';
 import { UserType, ApplicationQueue, Department } from '@/lib/constants';
+import Link from 'next/link';
 import PageTitleBar from '@/components/layout/PageTitleBar';
 
 async function getQueueCounts() {
@@ -79,73 +80,73 @@ export default async function DeptDashboard() {
             <ul>
               {/* Application Verification - counter staff verify submitted docs */}
               {isSaOrDa && (
-                <li><a href="/dept/application-verification">Application Verification</a></li>
+                <li><Link href="/dept/application-verification">Application Verification</Link></li>
               )}
 
               {/* Add Application - counter staff enter walk-in applications */}
               {isSaOrDa && (
-                <li><a href="/dept/add-application">Application</a></li>
+                <li><Link href="/dept/add-application">Application</Link></li>
               )}
 
               {/* Review Application - police background check + clearance workflow */}
               {isSaOrDa && (
                 <>
-                  <li><a href="/dept/review-application">Review Application</a></li>
-                  <li><a href="/dept/print-application-list">Print Application List</a></li>
+                  <li><Link href="/dept/review-application">Review Application</Link></li>
+                  <li><Link href="/dept/print-application-list">Print Application List</Link></li>
                 </>
               )}
 
               {/* Certificate Issuance - SA/DA see all queues */}
               {isSaOrDa && (
                 <>
-                  <li><a href="/dept/adverse-check">Certificate Issuance (No Adverse)</a></li>
-                  <li><a href="/dept/adverse-check">Certificate Issuance (Adverse)</a></li>
-                  <li><a href="/dept/oic-clearance">Certificate Issuance (OIC)</a></li>
-                  <li><a href="/dept/asp-clearance">Certificate Issuance (ASP)</a></li>
-                  <li><a href="/dept/dha-clearance">Certificate Issuance (DHA)</a></li>
-                  <li><a href="/dept/dig-clearance">Certificate Issuance (DIG)</a></li>
-                  <li><a href="/dept/certificate-issuance">Certificate Issuance (Posting Officer)</a></li>
+                  <li><Link href="/dept/adverse-check">Certificate Issuance (No Adverse)</Link></li>
+                  <li><Link href="/dept/adverse-check">Certificate Issuance (Adverse)</Link></li>
+                  <li><Link href="/dept/oic-clearance">Certificate Issuance (OIC)</Link></li>
+                  <li><Link href="/dept/asp-clearance">Certificate Issuance (ASP)</Link></li>
+                  <li><Link href="/dept/dha-clearance">Certificate Issuance (DHA)</Link></li>
+                  <li><Link href="/dept/dig-clearance">Certificate Issuance (DIG)</Link></li>
+                  <li><Link href="/dept/certificate-issuance">Certificate Issuance (Posting Officer)</Link></li>
                 </>
               )}
 
               {/* Role-specific Certificate Issuance for non-admin users */}
               {!isSaOrDa && certLink && (
-                <li><a href={certLink.href}>{certLink.label}</a></li>
+                <li><Link href={certLink.href}>{certLink.label}</Link></li>
               )}
 
               {/* Edit Application */}
               {isSaOrDa && (
-                <li><a href="/dept/edit-application">Edit Application</a></li>
+                <li><Link href="/dept/edit-application">Edit Application</Link></li>
               )}
 
               {/* Reports and management - SA/DA/DU */}
               {(isSaOrDa || userType === UserType.DU) && (
                 <>
-                  <li><a href="/dept/reports">Daily Transaction Report</a></li>
-                  <li><a href="/dept/reports">Application Details Report</a></li>
-                  <li><a href="/dept/applications">View Application Status</a></li>
-                  <li><a href="/dept/blacklist">Blacklist</a></li>
-                  <li><a href="/dept/reports">Clearance Report</a></li>
+                  <li><Link href="/dept/reports">Daily Transaction Report</Link></li>
+                  <li><Link href="/dept/reports">Application Details Report</Link></li>
+                  <li><Link href="/dept/applications">View Application Status</Link></li>
+                  <li><Link href="/dept/blacklist">Blacklist</Link></li>
+                  <li><Link href="/dept/reports">Clearance Report</Link></li>
                 </>
               )}
 
               {isSaOrDa && (
-                <li><a href="/dept/master-files">Master Files</a></li>
+                <li><Link href="/dept/master-files">Master Files</Link></li>
               )}
 
               {/* OIC-specific */}
               {userType === UserType.OI && (
-                <li><a href="/dept/locked-records">View Locked Records</a></li>
+                <li><Link href="/dept/locked-records">View Locked Records</Link></li>
               )}
 
               {/* Upload Additional Documents - OIC, ASP, DHA */}
               {(userType === UserType.OI || userType === UserType.AS || userType === UserType.DH) && (
-                <li><a href="/dept/upload-documents">Upload Additional Documents</a></li>
+                <li><Link href="/dept/upload-documents">Upload Additional Documents</Link></li>
               )}
 
               {/* Print Application */}
               {isSaOrDa && (
-                <li><a href="/dept/print-application">Print Application</a></li>
+                <li><Link href="/dept/print-application">Print Application</Link></li>
               )}
             </ul>
           </div>
