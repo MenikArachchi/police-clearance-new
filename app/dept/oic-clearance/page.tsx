@@ -738,7 +738,7 @@ export default function OicClearancePage() {
             <div style={{ padding: '15px', overflowY: 'auto', textAlign: 'center' }}>
               {attachModal.isImage ? (
                 <img
-                  src={`/api/attachments/${encodeURIComponent(attachModal.filename)}`}
+                  src={`${BASE_PATH}/api/attachments/${encodeURIComponent(attachModal.filename)}`}
                   alt={attachModal.title}
                   style={{ maxWidth: '100%', border: '1px solid #ccc' }}
                   onError={e => { (e.target as HTMLImageElement).alt = 'Image could not be loaded'; }}
@@ -747,7 +747,7 @@ export default function OicClearancePage() {
                 <div style={{ padding: '20px' }}>
                   <p>This file cannot be previewed inline.</p>
                   <a
-                    href={`/api/attachments/${encodeURIComponent(attachModal.filename)}`}
+                    href={`${BASE_PATH}/api/attachments/${encodeURIComponent(attachModal.filename)}`}
                     target="_blank"
                     rel="noreferrer"
                     className="btn btn-primary"
@@ -759,7 +759,7 @@ export default function OicClearancePage() {
             </div>
             <div style={{ padding: '10px 15px', borderTop: '1px solid #e5e5e5', textAlign: 'right' }}>
               <a
-                href={`/api/attachments/${encodeURIComponent(attachModal.filename)}`}
+                href={`${BASE_PATH}/api/attachments/${encodeURIComponent(attachModal.filename)}`}
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-default"
