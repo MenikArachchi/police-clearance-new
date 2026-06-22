@@ -52,7 +52,7 @@ export async function GET(
       '.tif': 'image/tiff', '.tiff': 'image/tiff',
     };
 
-    return new NextResponse(decrypted, {
+    return new NextResponse(new Uint8Array(decrypted), {
       headers: {
         'Content-Type': contentTypes[ext] ?? 'application/octet-stream',
         'Cache-Control': 'private, max-age=3600',
