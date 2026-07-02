@@ -294,6 +294,14 @@ export async function PATCH(req: NextRequest) {
         [appId, session.user.id, session.user.username, 'OIC Bulk Approved via CSV verification']
       );
 
+      // 4. Insert application modified date (matches old addApplicationModifiedDate, date_type = 'OIC')
+      await conn.execute(
+        `INSERT INTO application_modified_dates
+           (application_id, modified_date, date_type, modification, modified_user_id, modified_user_name)
+         VALUES (?, NOW(), 'OIC', ?, ?, ?)`,
+        [appId, 'OIC Bulk Approved via CSV verification', session.user.id, session.user.username]
+      );
+
       approvedCount++;
     }
 
