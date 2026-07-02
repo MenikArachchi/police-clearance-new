@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, Suspense } from 'react';
-import { signIn } from 'next-auth/react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { signIn, signOut, getSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import PageTitleBar from '@/components/layout/PageTitleBar';
+import { OIC_VERIFICATION_USER_IDS } from '@/lib/constants';
 
 function LoginForm() {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -36,8 +36,15 @@ function LoginForm() {
       return;
     }
 
-    const callbackUrl = searchParams.get('callbackUrl') || '/dept';
-    router.push(callbackUrl);
+    const session = await getSession();
+    if (session?.user?.id !== undefined && OIC_VERIFICATION_USER_IDS.includes(session.user.id)) {
+      router.push('/dept/oic-application-verification');
+      return;
+    }
+
+    // System is currently restricted to a fixed set of users for OIC SCV upload only.
+    await signOut({ redirect: false });
+    setError('Unauthorized access. This system is currently restricted to authorized users only.');
   }
 
   return (

@@ -175,6 +175,10 @@ export const UserStatus = {
   INACTIVE: 0,
 } as const;
 
+// Temporary restriction: while the system is limited to OIC SCV bulk upload,
+// only these user ids may log in / use the module.
+export const OIC_VERIFICATION_USER_IDS = [1840, 1352];
+
 export const ApprovalStatus = {
   PN: 'PN', // Pending
   AP: 'AP', // Approved
